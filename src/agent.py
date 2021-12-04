@@ -7,6 +7,7 @@ import numpy as np
 
 # A class determining possible intents for our agent
 class Intent(Enum):
+	START = 'start'
 	SHOW = 'show'
 	NAVIGATE = 'navigate'
 	SEARCH = 'search'
@@ -22,37 +23,55 @@ class Intent(Enum):
 		self.i = index[0]
 		index[0] += 1
 
-		# Associating the enum with a function inside of Agent class
-		self.f = lambda: None
 
-
-# Our agent
+# Our conversational agent
 class Agent():
 
 	def __init__(self):
 
 		# General bot information
-		self.name = 'This is the bot\'s name!'
+		self.name = 'RecipeBot'
 		self.recipe = None
-		self.classifier = pipeline('zero-shot-classification')
+		#self.classifier = pipeline('zero-shot-classification')
 
 		# Associating intents with agent functions
 		self.intents = Intent
-		for intent in self.intents:
-			self.associate(intent)
 
 		# Our initial state
 		self.current = None
 		self.current_intent = self.intents.UNKNOWN
 
-	# Associates intents with agent functions
-	@classmethod
-	def associate(cls, intent):
-		intent.f = getattr(cls, intent.value, lambda: None)
+	# Get the corresponding function for an intent
+	def intent_action(self, intent=None):
+		if intent is None:
+			intent = self.current_intent
+		return getattr(self, intent.value, lambda *args: None)
 
 	# Given a string of natural language, returns an intent
 	def parse_intent(self, text):
-		pass
+		if text in [intent.value for intent in self.intents]:
+			return self.intents(text)
+
+		return self.intents.QUIT
+
+	# When the user's intent is to start a new recipe
+	def start(self, text=None):
+		print('Please provide a recipe url from AllRecipes.com')
+
+		url = ''
+
+		while self.recipe is None and url not in ['q', 'Q', 'quit']:
+
+			url = input('URL: ')
+
+			try:
+				self.recipe = Recipe(url)
+				self.current = self.recipe.steps[0]
+			except ValueError:
+				print('Sorry, we couldn\'t parse that url. Please try another, or type q to quit')
+
+		print(f'Okay. Today I\'ll be helping you make {self.recipe.recipe_name}.')
+
 
 	# When the user's intent is to display broad information about the recipe
 	def show(self, text):
@@ -70,26 +89,53 @@ class Agent():
 	def get_param(self, text):
 		pass
 
-	# When the user's intent is not understood
-	def unknown(self, text):
-		print(f'Sorry, we didn\'t quite understand that. Could you try again?')
-
 	# When the user's intent is to find a suitable substitute for an ingredient
 	def substitute(self, text):
 		pass
 
+	# When the user's intent is not understood
+	def unknown(self, text):
+		print(f'Sorry, I didn\'t quite understand that. Could you try again?')
+
 	# Call to run the bot
 	def run(self):
-		
-		print(f'Hello, and welcome to Nathan\'s cooking assistant. My name is {self.name}, and I will guide you through any recipe from AllRecipes.com! Please input a recipe URL to get started.')
 
-		url = input('Your recipe URL: ')
-		self.recipe = Recipe(url)
+		# Intents that require us to be working with a recipe.
+		require_recipe = [Intent.SHOW, self.intents.NAVIGATE, self.intents.GET_PARAM]
+		
+		print(f'Hello, and welcome to Nathan, Jason, and Ricky\'s cooking assistant. My name is {self.name}, and I will guide you through any recipe from AllRecipes.com! How can I be of service today?')
+
+		ask = True
 
 		while self.current_intent is not self.intents.QUIT:
-			user_input = input('Your Response: ')
+
+			# The user input
+			if ask:
+				user_input = input('Your Query: ')
+
 			self.current_intent = self.parse_intent(user_input)
-			self.current_intent.f(user_input)
+			ask = True
+
+			# In the case that the user is not currently in a recipe, but is trying to perform an action that requires one
+			if self.current is None and self.current_intent in require_recipe:
+				
+				print(f'Sorry, but it seems like you\'re trying to do something that requires a specific recipe. Would you like to start on one now?')
+
+				user_input = input('Start recipe? (y/n): ')
+				if user_input.lower() == 'y':
+					self.start()
+
+				elif user_input.lower() == 'n':
+					print('Ok. Let me know if you need anything else')
+
+				else:
+					ask = False
+
+			# The user is currently in a recipe (all actions available)
+			else:
+				action = self.intent_action()
+				action(user_input)
+
 
 		print('Glad I could be of assistance!')
 
