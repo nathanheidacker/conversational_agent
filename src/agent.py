@@ -144,6 +144,7 @@ class Agent():
 				print(f'\nSorry, but it seems like you\'re trying to do something that requires a specific recipe. Would you like to start on one now?')
 
 				user_input = input('Start recipe? (y/n): ')
+				
 				if user_input.lower() == 'y':
 					self.start()
 
