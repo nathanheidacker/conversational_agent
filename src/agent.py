@@ -5,6 +5,9 @@ import spacy
 import re
 import pandas as pd
 import numpy as np
+import requests
+import bs4
+import nltk
 
 # A class determining possible intents for our agent
 class Intent(Enum):
@@ -105,12 +108,37 @@ class Agent():
 
 	# When the user's intent is to find information online
 	def search(self, text):
-		import requests
-		import bs4
-		url = "https://google.com/search?q=" + text
+		current_text = self.recipe.steps[self.current_i]
+		tools = self.tools
+		
+		inqury = text.replace("?", "")
+		do_can_words = ["can", "could",  "do", "carry out", "execute", "perform", "implement", "complete", "finish", "bring about", "effect", "pull off"]
+		assumes_vague = ["this", "that", "these", "those", "such"]
+		if "what is" in inqury.lower() or "what's" in inqury.lower() or "whats" in inqury.lower():
+    			tool_check = inqury.split()
+    			for tool in tools:
+        			for word in tool_check:
+            				if word in tool:
+                				inqury = inqury + "tool"
+    			if "for cooking" not in inqury.lower():
+        			inqury = inqury + " for cooking"
+		step = nltk.word_tokenize(inqury)
+		tags = nltk.pos_tag(step)
+		vague_question = False
+		for vague_word in assumes_vague:
+    			if vague_word in inqury:
+        			vague_question = True
+		for duo in tags:
+    			(word, tag) = duo
+    			if "NN" in tag:
+        			vague_question = False
+		if vague_question == True:
+			inqury = "How do I " + current_text
+			
+		url = "https://google.com/search?q=" + inqury
 		request_result = requests.get(url)
 		soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
-		answer = soup.find("div", class_='BNeawe').text
+		answer = soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text
 		print(answer)
 
 	# When the user's intent is to get some parameter about an ingredient or step
