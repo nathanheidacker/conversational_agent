@@ -82,6 +82,10 @@ class Agent():
 
 				# Successful parse
 				print(f'Okay. Today I\'ll be helping you make {self.recipe.recipe_name}.')
+				print("Here are the ingredients")
+				self.recipe.output_ingredients()
+				print("If you are all set to start with the steps. Type proceed")
+				print("Otherwise, please provide your next query")
 
 			except ValueError:
 				print('Sorry, we couldn\'t parse that url. Please try another, or type q to quit')
