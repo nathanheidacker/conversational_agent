@@ -112,10 +112,13 @@ class Agent():
 
 	# When the user's intent is to find information online
 	def search(self, text):
-		current_text = self.recipe.steps[self.current_i]
-		tools = self.tools
+		print(self.current_i)
+		inqury = input("What do you want to ask? ")
+		current_text = self.recipe.steps[self.current_i].text
+		print(current_text)
+		tools = self.recipe.tools
 		
-		inqury = text.replace("?", "")
+		inqury = inqury.replace("?", "")
 		do_can_words = ["can", "could",  "do", "carry out", "execute", "perform", "implement", "complete", "finish", "bring about", "effect", "pull off"]
 		assumes_vague = ["this", "that", "these", "those", "such"]
 		if "what is" in inqury.lower() or "what's" in inqury.lower() or "whats" in inqury.lower():
