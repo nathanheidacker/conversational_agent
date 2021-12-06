@@ -1,539 +1,224 @@
-from bs4 import BeautifulSoup as bs
-from urllib import request
-from functools import lru_cache
+from recipe import Recipe
+from aenum import Enum, unique, auto, extend_enum
 from transformers import pipeline
-import data
-import requests
-import unicodedata
-import re
 import spacy
-import copy
+import re
+import pandas as pd
+import numpy as np
+import requests
+import bs4
+import nltk
 
-# Loading spacy
-nlp = spacy.load("en_core_web_sm")
+# A class determining possible intents for our agent
+class Intent(Enum):
+	START = 'start'
+	SHOW = 'show'
+	NAVIGATE = 'navigate'
+	SEARCH = 'search'
+	GET_PARAM = 'get_param'
+	SUBSTITUTE = 'substitute'
+	QUIT = 'quit'
+	UNKNOWN = 'unknown'
 
 
-# Class representing a recipe
-class Recipe:
+	def __init__(self, value, index=[0]):
 
-	# Class representing a node in a step graph
-	class Step:
+		# Giving the enum an index for category determination
+		self.i = index[0]
+		index[0] += 1
 
-		def __init__(self, sentence=None):
 
-			# Null/empty step
-			if sentence is None:
-				self.text = ''
-				self.actions, self.ingredients, self.tools = [], [], []
-				self.new_text = ''
-				self.time = None
+# Our conversational agent
+class Agent():
 
-			# Parsing step
-			else:
-				self.text = ' '.join([self.convert_fraction(x) for x in sentence.split()])
-				self.tokens = nlp(sentence)
-				self.actions, self.ingredients, self.tools, self.valid = self.get_info()
-				self.new_text = ' '.join([self.convert_fraction(x) for x in sentence.split()])
-				self.time = self.get_time()
+	def __init__(self):
 
-		def __str__(self):
-			return f'(Actions: {self.actions} | Ingredients: {self.ingredients} | Tools: {self.tools} | Time: {self.time})'
+		# General bot information
+		self.name = 'RecipeBot'
+		self.recipe = None
+		#self.classifier = pipeline('zero-shot-classification')
 
-		def __repr__(self):
-			return str(self)
+		# Associating intents with agent functions
+		self.intents = Intent
 
-		# Filling step info
-		def get_info(self):
+		# Our initial state
+		self.current = None
+		self.current_i = None
+		self.current_intent = self.intents.UNKNOWN
 
-			# Getting items from data, then querying for missing items
-			actions, ingredients, tools = self.from_data()
+		# Keeping a history of actions
+		self.history = []
 
-			# QUERYING ITEMS IN THE TEXT
-			#actions, ingredients, tools = self.query(actions, ingredients, tools)
+	# Get the corresponding function for an intent
+	def intent_action(self, intent=None):
+		if intent is None:
+			intent = self.current_intent
+		return getattr(self, intent.value, lambda *args: None)
 
-			valid = True if (actions and (ingredients or tools)) else False
+	# Given a string of natural language, returns an intent
+	def parse_intent(self, text):
+		if text in [intent.value for intent in self.intents]:
+			return self.intents(text)
 
-			return actions, ingredients, tools, valid
+		elif re.match(r'^[qQ]([uU]?[iI]?[tT]?)$', text):
+			return self.intents.QUIT
 
-		# Grabbing potential data from hardcoded lists
-		def from_data(self):
-			# Getting actions
-			actions = [w.text for w in self.tokens if w.lemma_ in data.cooking_methods]
+		return self.intents.UNKNOWN
 
-			# Getting ingredients
-			ingredients = [w.text for w in self.tokens if w.lemma_ in data.all_ingredients]
+	# When the user's intent is to start a new recipe
+	def start(self, text=None):
+		print('Please provide a recipe url from AllRecipes.com')
 
-			# Getting tools
-			tools = [w.text for w in self.tokens if w.lemma_ in data.tools]
+		url = ''
 
-			return actions, ingredients, tools
+		while self.recipe is None and not re.match(r'^[qQ]([uU]?[iI]?[tT]?)$', url):
 
-		# Finding more data with queries
-		def query(self, actions, ingredients, tools):
+			url = input('URL: ')
 
-			# Given a question as a string, returns an answer and a confidence in that answer
-			def answer(question):
-				qdict = {
-					'question': question,
-					'context': self.text
-				}
-
-				return query(qdict)['answer'], query(qdict)['score']
-
-			def append_answer(l, question, threshold=0):
-				item, confidence = answer(question)
-				if confidence > threshold and len(item.split()) < 4:
-					l.append((item, confidence))
-
-			# Querying actions
-			if not actions:
-
-				# Querying using ingredients
-				for ingredient in ingredients:
-					question = f'do what with {ingredient}?'
-					append_answer(actions, question)
-
-				# Querying using tools
-				for tool in tools:
-					question = f'do what with {tool}?'
-					append_answer(actions, question)
-
-			# Deleting duplicates
-			actions = list(set(actions))
-
-			# Querying ingredients
-			if not ingredients:
-
-				for action in actions:
-					question = f'{action} what?'
-					append_answer(ingredients, question)
-
-			ingredients = list(set(ingredients))
-
-			# Querying tools
-			if not tools:
-
-				for action in actions:
-					for ingredient in ingredients:
-						question = f'{action} {ingredient} in a what?'
-						append_answer(tools, question)
-
-			tools = list(set(tools))
-
-			return actions, ingredients, tools
-		
-		def convert_fraction(self, word):
-			if self.is_vulgar_fraction(word[-1]):
-		
-				number = unicodedata.numeric(word[-1])
-				if len(word) > 1:
-					if word[:-2].isnumeric():
-						number += float(word[:-2])
-					else:
-						return word
-		
-				return str(int(number)) if number%1==0 else str(round(float(number), 2))
-		
-			elif re.match(r'[0-9]+/[0-9]+', word):
-				word = word.split('/')
-				return str(round(float(word[0]) / float(word[1]), 2))
-		
-			return word
-		
-		def is_vulgar_fraction(self, character):
 			try:
-				unicodedata.numeric(character)
-				try:
-					float(character)
-					return False
-				except ValueError:
-					return True
+				self.recipe = Recipe(url)
+				self.current = self.recipe.steps[0]
+				self.current_i = 0
+
+				# Successful parse
+				print(f'Okay. Today I\'ll be helping you make {self.recipe.recipe_name}.')
+				print("Here are the ingredients")
+				self.recipe.output_ingredients()
+				print("If you are all set to start with the steps. Type proceed")
+				print("Otherwise, please provide your next query")
+
 			except ValueError:
-				return False
-
-		# Returns the time component of the step, or unknown
-		def get_time(self):
-
-			seconds = re.compile(r'[1-9]+[0-9]* [sS]econds?')
-			minutes = re.compile(r'[1-9]+[0-9]* [mM]inutes?')
-			hours = re.compile(r'[1-9]+[0-9]* [hH]ours?')
-
-			for time_pattern in [seconds, minutes, hours]:
-				match = time_pattern.search(self.text)
-				if match:
-					start = match.span()[0]
-					end = match.span()[1]
-					
-					return self.text[start:end]
-
-			return 'None Specified'
-
-	def __init__(self, url):
-
-		# Store raw HTML
-		html_doc = request.urlopen(url)
-		self.soup = bs(html_doc, 'html.parser')
-
-		# Getting the Recipe name
-		title = self.soup.find('title')
-		if ' | Allrecipes' in title.text:
-			title = title.text[:-13]
-
-		self.recipe_name = title
-
-		# Getting the ingredients
-		self.ingredients = self.get_ingredients()
-
-		# All of the text for a recipe's steps
-		self.text = [div.text for div in self.soup.find_all('div', {'class': 'paragraph'})]
-
-		# Parsing the steps
-		self.steps = self.get_steps()
-
-		# Getting tools and actions
-		self.tools = self.named_tools()
-		self.potential_main_actions = self.pmActions()
-		self.main_actions = self.mActions()
-
-	def find_tags(self):
-		find_tag_list = self.soup.find('script', id='karma-loader')
-		find_tag_list = str(find_tag_list).split()
-		append_to_list = False
-		tags = []
-		for item in find_tag_list:
-		    item = item.replace('"','')
-		    item = item.replace(',','')
-		    if append_to_list and '[' not in item:  
-		        if ']' in item:
-		            break
-		        tags.append(item)
-		    if 'tags:' == item:
-		        append_to_list = True
-		return tags
-
-	#Identifies Potential Main Actions:
-	def pmActions(self):
-		first_words = []
-		potential_main_actions = []
-		for step in self.steps:
-			each_step = step.text.split()
-			first_words.append(each_step[0])
-		for word in first_words:
-			if word.lower() in data.cooking_methods:
-				potential_main_actions.append(word)
-		pma = []
-		for i in potential_main_actions:
-			if i.lower() not in pma:
-				pma.append(i.lower())
-		return pma
-
-	#Identifies Likely main actions
-	def mActions(self):
-		action_list = ['cook', 'bake', 'fry', 'roast', 'grill', 'steam', 'poach', 'simmer', 'broil', 'blanch', 'braise', 'stew']
-		main_actions = []
-		for action in self.potential_main_actions:
-			if action.lower() in action_list:
-				main_actions.append(action)
-		ma = []
-		for i in main_actions:
-			if i.lower() not in ma:
-				ma.append(i.lower())
-		return ma
-
-	def named_tools(self):
-		tools = []
-		for step in self.steps:
-			for tool in data.tools:
-				if tool in step.text:
-					tools.append(tool)
-		t = []
-		for i in tools:
-			if i.lower() not in t:
-				t.append(i.lower())
-		return t
+				print('Sorry, we couldn\'t parse that url. Please try another, or type q to quit')
 
 
-	@staticmethod
-	def clean_split(string, seps):
-		result = [string]
-		for sep in seps:
-			new = result[:]
-			result = []
-			for phrase in new:
-				new_phrase = phrase.split(sep)
-				if sep.isalpha() and len(new_phrase) > 1:
-					new_phrase = [new_phrase[0]] + [sep + x for x in new_phrase[1:]]
-				result += new_phrase
+	# When the user's intent is to display broad information about the recipe
+	def show(self, text):
+		print(self.current.text)
 
-		if result[-1].strip() == 'or':
-			result = result[:-1]
-		return [x.strip() for x in result if x != ' ']
+	# When the user's intent is to navigate to a different step of the recipe
+	def navigate(self, text):
 
-	# Given a list of words, cleans substeps of phrases that contain those words
-	def clean_substeps(self, to_clean):
-		# Getting substeps
-		cleaned = []
-		for i, step in enumerate(self.steps):
-			substeps = step.text.split('.')
-			for j, substep in enumerate(substeps):
-				phrases = self.clean_split(substep, [',', ';', 'until', ', and'])
-				for word in to_clean:
-					phrases = [phrase for phrase in phrases if word not in phrase]
-				substeps[j] = ', '.join(phrases)
-				if 'should read' in substeps[j] and 'degree' in substeps[j] and 'thermometer' not in substeps[j]:
-					substeps[j] = ''
+		# determine where/how to move
+		# SOME FUNCTION HERE
+		direction = 'forward'
 
-			step = '. '.join(substeps)
-			if len(step.strip()) == 0:
-				self.steps[i].new_text = ''
-			else:
-				cleaned.append(step)
-				self.steps[i].new_text = step
-		self.steps = [s for s in self.steps if s.new_text != '']
-		return cleaned
-
-	# Ingredient Parser
-	def get_ingredients(self):
-
-		# Getting all span texts with ingredients-item-name
-		ingredient_strings = self.soup.find_all('span', {'class': 'ingredients-item-name'})
-		ingredient_strings = [span.text.lower() for span in ingredient_strings]
-
-		# Cleaning the ingredients
-		ingredients = []
-		unknown = {}
-		ingredient_indices = {}
-		index = 0
-		for string in ingredient_strings:
-
-			# Replacing thin spaces
-			string = string.replace('\u2009', '')
-
-			# Ingredient structure
-			ingredient = {
-				'name': '',
-				'type': 'NULL',
-				'quantity': .0,
-				'measurement': '',
-				'descriptors': [],
-				'prep': []
-			}
-
-			# Very special case
-			if 'to taste' in string:
-				string = string.replace('to taste', 'to|taste')
-
-			# Parsing out descriptors in parentheses
-			parens = re.search(r'(\([^\)]+\))', string)
-			if parens:
-				for paren in parens.groups():
-					ingredient['descriptors'].append(paren[1:-1])
-					string = string.replace(paren, '')
-					string = string.replace('  ', ' ')
-
-			# Determining a 'split word'
-			split_word = ''
-			for word in string.split():
-				if word in data.all_ingredients:
-					split_word = word
-					break
-
-			# Removing commas before the split word
-			if split_word:
-				string = string.split(split_word)
-
-				# Decomposing into before and after components for processing
-				before = string[0].replace(',', ' ') + split_word
-				after = ' '.join(string[1:]).replace('  ', ' ')
-
-				# Getting 'in x' as a prep step after the split
-				if ' in ' in after:
-					after = after.split(' in ')
-					after_before = after[0]
-					after_after = ' '.join(['in'] + after[1:])
-					ingredient['prep'].append(after_after)
-					after = after_before
-
-				# Rebuilding string
-				string = ' '.join([before, after])
-
-			# Determining if the ingredient has 'prep steps'
-			string = string.split(',')
-			if len(string) > 1:
-				ingredient['prep'] = [' '.join(string[1:]).strip()]
-
-			string = string[0]
-			string = string.split(' - ')
-			if len(string) > 1:
-				ingredient['prep'] = [' '.join(string[1:]).strip()]
-
-			# Determining if the ingredient has an explicit quantity
-			string = string[0].split()
-			has_quantity = False
-			for i, word in enumerate(string):
-
-				# Catching more preparatory steps
-				if word.endswith('ed') and word != 'red':
-					if i > 0 and isinstance(string[i-1], str) and string[i-1].endswith('ly'):
-						ingredient['prep'].append(f'{string[i-1]} {word}')
-						string[i-1] = None
-					else:
-						ingredient['prep'].append(word)
-					string[i] = None
-
-				if word.endswith('less'):
-					ingredient['descriptors'].append(word)
-					string[i] = None
-
-				# Replacing 'A and a' with 1
-				if word.lower() == 'a':
-					word = '1'
-					string[i] = '1'
-
-				# Checking for numbers
-				try:
-					number = self.convert_fraction(word)
-					string[i] = number
-					has_quantity = True
-				except ValueError:
-					continue
-
-			# Removing null words that were added as prep
-			string = [x for x in string if x is not None]
-
-			# If the string has an explicit quanity
-			if has_quantity:
-				if len(string) == 1:
-					ingredient['name'] = string[0]
-				elif len(string) == 2:
-					ingredient['quantity'] = string[0]
-					ingredient['measurement'] = 'whole'
-					ingredient['name'] = string[1]
-				else:
-					ingredient['quantity'] = string[0]
-					ingredient['measurement'] = string[1]
-					ingredient['name'] = ' '.join([str(x) for x in string[2:]])
-
-
-			# Special cases where there is no quantity
-			else:
-				ingredient['name'] = ' '.join(string)
-				unknown[ingredient['name']] = ingredient
-
-			# This initial parse will properly handle most ingredients, but the validation step is necessary to improve accuracy for the others
-			ingredients.append(self.validate(ingredient))
-			ingredient_indices[ingredient['name']] = index
-			index += 1
-
-		return ingredients
-
-
-	# Given a vulgar fraction string, returns a float
-	def convert_fraction(self, string_fraction):
-		if len(string_fraction) == 1:
-			return unicodedata.numeric(string_fraction)
+		# Moving
+		if direction == 'forward':
+			self.current_i += 1
 		else:
-			return sum([self.convert_fraction(c) for c in string_fraction])
+			self.current_i -= 1
 
-	# Validates the legitimacy/accuracy of an ingredient parse, returning a modified ingredient
-	def validate(self, ingredient):
+		self.current = self.recipe.steps[self.current_i]
 
-		# Validating measurements
-		if ingredient['measurement'] not in data.measurements:
-			name = ingredient['measurement'] + ' ' + str(ingredient['name'])
-			for word in name.split():
-				if word in data.measurements or word[:-1] in data.measurements:
-					ingredient['measurement'] = 'to taste' if word == 'to|taste' else word
-					ingredient['name'] = name.replace(word, '').replace('  ', ' ').strip()
-					break
-			else:
-				ingredient['name'] = name
-				ingredient['measurement'] = 'whole'
+	# When the user's intent is to find information online
+	def search(self, text):
+		print(self.current_i)
+		inqury = input("What do you want to ask? ")
+		current_text = self.recipe.steps[self.current_i].text
+		print(current_text)
+		tools = self.recipe.tools
+		
+		inqury = inqury.replace("?", "")
+		do_can_words = ["can", "could",  "do", "carry out", "execute", "perform", "implement", "complete", "finish", "bring about", "effect", "pull off"]
+		assumes_vague = ["this", "that", "these", "those", "such"]
+		if "what is" in inqury.lower() or "what's" in inqury.lower() or "whats" in inqury.lower():
+    			tool_check = inqury.split()
+    			for tool in tools:
+        			for word in tool_check:
+            				if word in tool:
+                				inqury = inqury + "tool"
+    			if "for cooking" not in inqury.lower():
+        			inqury = inqury + " for cooking"
+		step = nltk.word_tokenize(inqury)
+		tags = nltk.pos_tag(step)
+		vague_question = False
+		for vague_word in assumes_vague:
+    			if vague_word in inqury:
+        			vague_question = True
+		for duo in tags:
+    			(word, tag) = duo
+    			if "NN" in tag:
+        			vague_question = False
+		if vague_question == True:
+			inqury = "How do I " + current_text
+			
+		url = "https://google.com/search?q=" + inqury
+		request_result = requests.get(url)
+		soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
+		answer = soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text
+		print(answer)
 
-		# Validating ingredients, getting type information
-		for ingredient_type in data.ingredients_list:
-			if ingredient['name'] in data.ingredients_list[ingredient_type]:
-				ingredient['type'] = ingredient_type
-				break
+	# When the user's intent is to get some parameter about an ingredient or step
+	def get_param(self, text):
+		pass
 
-		# Ingredient type not found, checking individual words
-		else:
-			for word in reversed(ingredient['name'].split()):
-				found = False
+	# When the user's intent is to find a suitable substitute for an ingredient
+	def substitute(self, text):
+		pass
 
-				for ingredient_type in data.ingredients_list:
-					ingredients = data.ingredients_list[ingredient_type]
-					if word in ingredients or word[:-1] in ingredients:
-						ingredient['type'] = ingredient_type
-						found = True
-						break
+	# When the user's intent is not understood
+	def unknown(self, text):
+		print(f'Sorry, I didn\'t quite understand that. Could you try again?')
 
-				if found:
-					break
+	# Call to run the bot
+	def run(self):
 
-		# Identifying 'descriptors'
-		per_word = [token.text for word in ingredient['name'].split() for token in nlp(word) if token.pos_ == 'ADJ']
+		# Intents that require us to be working with a recipe.
+		require_recipe = [Intent.SHOW, self.intents.NAVIGATE, self.intents.GET_PARAM]
+		
+		print(f'\nHello, and welcome to Nathan, Jason, and Ricky\'s cooking assistant. My name is {self.name}, and I will guide you through any recipe from AllRecipes.com! How can I be of service today?')
 
-		per_whole = [token.text for token in nlp(ingredient['name']) if token.pos_ == 'ADJ']
+		ask = True
 
-		for word in ingredient['name'].split():
-			if word in per_word or word in per_whole:
-				ingredient['descriptors'].append(word)
+		while self.current_intent is not self.intents.QUIT:
 
-		return ingredient
+			# The user input
+			if ask:
+				user_input = input('Your Query: ')
 
-	# Returns a step graph
-	def get_steps(self):
+			self.current_intent = self.parse_intent(user_input)
+			ask = True
 
-		# Getting all the text corresponding to steps
-		steps = [div.text for div in self.soup.find_all('div', {'class': 'paragraph'})]
+			# In the case that the user is not currently in a recipe, but is trying to perform an action that requires one
+			if self.current is None and self.current_intent in require_recipe:
+				
+				print(f'\nSorry, but it seems like you\'re trying to do something that requires a specific recipe. Would you like to start on one now?')
 
-		# Substeps are sentence level
-		substeps = []
-		for step in steps:
-			substeps += [x.strip() for x in step.split('.')]
+				user_input = input('Start recipe? (y/n): ')
+				
+				if user_input.lower() == 'y':
+					self.start()
 
-		# Creating a step for each sentence
-		steps = [self.Step(x) for x in substeps]
-		steps = [s for s in steps if len(s.text) > 0]
+				elif user_input.lower() == 'n':
+					print('\nOk. Let me know if you need anything else')
 
-		# Im not sure
-		'''
-		for i, step in enumerate(self.steps):
-			for ing, _ in enumerate(self.ingredients):
-				if ing in step.text and ing not in step.ingredients:
-					self.steps[i].ingredients.append(ing)
-		'''
-
-		return steps
-	def output_ingredients(self):
-			print("Ingredients: ")
-			for info in self.ingredients:
-				if info['quantity'] == 0.0:
-					print(info['name'], info['measurement'])
 				else:
-					prep_string = ', '.join(info['prep'])
-					if len(prep_string) > 0:
-						prep_string = ', ' + prep_string
-					descriptors_not_in_name = [d for d in info['descriptors'] if d not in info['name']]
-					d = ' ' + ', '.join(descriptors_not_in_name)
-					if len(d) == 1:
-						d = ''
-					q = info['quantity']
-					if q % 1 == 0.0:
-						q = str(int(q))
-					else:
-						q = str(q)
-					m = '' if info['measurement'] == 'whole' else info['measurement']
-					n = info['name']
-					if len(m) == 0:
-						print(q + d, n + prep_string)
-					else:
-						print(q + d, m, n + prep_string)
+					ask = False
 
-# Returns a valid recipe url based on an integer input
-def get_recipe_url(num=259356):
-	response = requests.get(f'https://www.allrecipes.com/recipe/{num}')
-	if response.status_code == 200:
-		return response.url
-	return get_recipe_url(259356)
+			# The user is currently in a recipe (all actions available)
+			else:
+				action = self.intent_action()
+				print()
+				action(user_input)
+				self.history.append((self.current_intent.name, user_input))
+
+		print('Glad I could be of assistance!')
+
+		
+
+def main():
+
+	# Loading spacy
+	nlp = spacy.load("en_core_web_sm")
+
+	# Loading up the conversational agent
+	agent = Agent()
+	agent.run()
+
+	# DEBUGGING
+	print('\n\n--ACTION HISTORY--\n')
+	for action in agent.history: print(action)
+
+
+if __name__ == '__main__':
+	main()
