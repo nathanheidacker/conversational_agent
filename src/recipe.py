@@ -506,7 +506,30 @@ class Recipe:
 		'''
 
 		return steps
-
+	def output_ingredients(self):
+			print("Ingredients: ")
+			for info in self.ingredients:
+				if info['quantity'] == 0.0:
+					print(info['name'], info['measurement'])
+				else:
+					prep_string = ', '.join(info['prep'])
+					if len(prep_string) > 0:
+						prep_string = ', ' + prep_string
+					descriptors_not_in_name = [d for d in info['descriptors'] if d not in info['name']]
+					d = ' ' + ', '.join(descriptors_not_in_name)
+					if len(d) == 1:
+						d = ''
+					q = info['quantity']
+					if q % 1 == 0.0:
+						q = str(int(q))
+					else:
+						q = str(q)
+					m = '' if info['measurement'] == 'whole' else info['measurement']
+					n = info['name']
+					if len(m) == 0:
+						print(q + d, n + prep_string)
+					else:
+						print(q + d, m, n + prep_string)
 
 # Returns a valid recipe url based on an integer input
 def get_recipe_url(num=259356):
