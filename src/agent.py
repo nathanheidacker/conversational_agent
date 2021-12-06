@@ -105,7 +105,13 @@ class Agent():
 
 	# When the user's intent is to find information online
 	def search(self, text):
-		pass
+		import requests
+		import bs4
+		url = "https://google.com/search?q=" + text
+		request_result = requests.get(url)
+		soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
+		answer = soup.find("div", class_='BNeawe').text
+		print(answer)
 
 	# When the user's intent is to get some parameter about an ingredient or step
 	def get_param(self, text):
