@@ -64,106 +64,86 @@ ingredients_list = {
 
 all_ingredients = [item for k in ingredients_list for item in ingredients_list[k]]
 
-japanese_seasonings = ['dashi', 'soy sauce', 'sake', 'mirin', 'vinegar', 'sugar', 'salt', 'ginger', 'perilla', 'takanotsume red pepper', 'wasabi']
-
-japanese_vegetables = ['hitashi-mono', 'wakame seaweed', 'daikon', 'carrot', 'green beans', 'wakegi scallion', 'baka-gai']
-
-japanese_cooking_techniques = ['raw', 'grilled', 'simmered', 'boiled', 'steamed', 'deep-fried', 'dressed']
-
-japanese_binders = ['egg', 'panko']
-
-japanese_sweets = ['anko', 'red bean paste', 'taiyaki', 'mochi']
-
-#please note that this binder requires all ingredients and is a good replacement for egg
-cool_vegetarian_binder = ['1/2 of a medium mashed banana', '1/4 cup of applesauce', '3.5 tablespoons of gelatin blend', '1 tablespoon of ground flaxseed mixed with 3 tablespoons of warm water']
-
-mexican_seasonings = [{'name': 'cilantro', 'type': 'seasoning', 'quantity': 1 , 'measurement': 'bunch', 'descriptors': [''], 'prep': ['']},
-{'name': 'chili powder', 'type': 'seasoning', 'quantity': 2, 'measurement': 'teaspoons', 'descriptors': [''], 'prep': ['']},
-{'name': 'garlic', 'type': 'seasoning', 'quantity': 2, 'measurement': 'cloves', 'descriptors': [''], 'prep': ['']},
-{'name': 'garlic salt', 'type': 'seasoning', 'quantity': 1, 'measurement': 'teaspoon', 'descriptors': [''], 'prep': ['']},
-{'name': 'cumin', 'type': 'seasoning', 'quantity': 0.5, 'measurement': 'teaspoon', 'descriptors': ['ground'], 'prep': ['']},
-{'name': 'salt', 'type': 'seasoning', 'quantity': .0, 'measurement': 'to taste', 'descriptors': [''], 'prep': ['']},
-{'name': 'pepper', 'type': 'seasoning', 'quantity': .0, 'measurement': 'to taste', 'descriptors': [''], 'prep': ['']}
-]
-mexican_bread = [{'name': 'torta bread', 'type': 'starch', 'quantity': 1, 'measurement': 'slices', 'descriptors': [''], 'prep': ['']}]
-
-mexican_fruits = [{'name': 'mango', 'type': 'fruit', 'quantity': 3 , 'measurement': 'whole', 'descriptors': [''], 'prep': ['']},
-{'name': 'strawberry', 'type': 'fruit', 'quantity': 8 , 'measurement': 'whole', 'descriptors': [''], 'prep': ['']},
-{'name': 'banana', 'type': 'fruit', 'quantity': 2 , 'measurement': 'whole', 'descriptors': [''], 'prep': ['']},
-{'name': 'cantaloupe', 'type': 'fruit', 'quantity': 4 , 'measurement': 'wedges', 'descriptors': [''], 'prep': ['']}
-]
-
-mexican_cheese =  [{'name': 'queso fresco', 'type': 'protein', 'quantity': 1, 'measurement': 'package', 'descriptors': [''], 'prep': ['broken into pieces']},
-{'name': 'queso blanco', 'type': 'protein', 'quantity': 1, 'measurement': 'package', 'descriptors': [''], 'prep': ['broken into pieces']},
-{'name': 'queso oaxaca', 'type': 'protein', 'quantity': 2, 'measurement': 'ounce', 'descriptors': [''], 'prep': ['broken into pieces']}
-]
-
-mexican_protein = [{'name': 'al pastor', 'type': 'protein', 'quantity': 1 , 'measurement': 'pound', 'descriptors': [''], 'prep': ['']},
-{'name': 'carnitas', 'type': 'protein', 'quantity': 1, 'measurement': 'pound', 'descriptors': [''], 'prep': ['']},
-{'name': 'carne asada', 'type': 'protein', 'quantity': 1, 'measurement': 'pound', 'descriptors': [''], 'prep': ['']},
-]
-mexican_vegetables = [
-{'name': 'bellpeppers', 'type': 'vegetable', 'quantity': 2, 'measurement': 'whole', 'descriptors': ['red'], 'prep': ['']}
-]
-mexican_dessert_seasonings = [{'name': 'piloncillo', 'type': 'seasoning', 'quantity': 16, 'measurement': 'ounce', 'descriptors': [''], 'prep': ['chopped']},
-{'name': 'vanilla extract', 'type': 'seasoning', 'quantity': 2, 'measurement': 'tablespoons', 'descriptors': [''], 'prep': ['']},
-{'name': 'cinnamon', 'type': 'seasoning', 'quantity': 3, 'measurement': 'sticks', 'descriptors': [''], 'prep': ['']},
-]
-mexican_tres_leches = [{'name': 'even parts: evaporated milk, condensed milk, and heavy cream', 'type': 'protein', 'quantity': 16, 'measurement': 'ounce', 'descriptors': [''], 'prep': ['mixed']}]
-
-mexican_rice = [{'name': 'long-grain rice', 'type': 'starch', 'quantity': 1, 'measurement': 'cup', 'descriptors': ['uncooked', 'long-grain'], 'prep': ['']},
-{'name': 'vegetable oil', 'type': 'cooking_medium', 'quantity': 3 , 'measurement': 'tablespoons', 'descriptors': [''], 'prep': ['']},
-{'name': 'garlic salt', 'type': 'seasoning', 'quantity': 1, 'measurement': 'teaspoon', 'descriptors': [''], 'prep': ['']},
-{'name': 'cumin', 'type': 'seasoning', 'quantity': 0.5, 'measurement': 'teaspoon', 'descriptors': ['ground'], 'prep': ['']},
-{'name': 'onion', 'type': 'vegetable', 'quantity': 0.25, 'measurement': 'cup', 'descriptors': [''], 'prep': ['chopped']},
-{'name': 'tomato sauce', 'type': 'sauce', 'quantity': 0.25, 'measurement': 'cup', 'descriptors': [''], 'prep': ['']},
-{'name': 'chicken broth', 'type': 'protein', 'quantity': 2, 'measurement': 'cups', 'descriptors': [''], 'prep': ['']}
-]
-#Heat oil in a large saucepan over medium heat and add rice. Cook, stirring constantly, until puffed and golden. While rice is cooking, sprinkle with salt and cumin.
-#Stir in onions and cook until tender. Stir in tomato sauce and chicken broth; bring to a boil. Reduce heat to low, cover and simmer for 20 to 25 minutes. Fluff with a fork.
-mexican_salsa = [{'name': 'salsa roja', 'type': 'sauce', 'quantity': 0.5, 'measurement': 'cup', 'descriptors': [''], 'prep': ['']},
-{'name': 'tomatoes', 'type': 'vegetable', 'quantity': 3, 'measurement': 'whole', 'descriptors': [''], 'prep': ['']},
-{'name': 'onion', 'type': 'vegetable', 'quantity': 0.25, 'measurement': '', 'descriptors': [''], 'prep': ['']},
-{'name': 'garlic', 'type': 'seasoning', 'quantity': 1, 'measurement': 'clove', 'descriptors': [''], 'prep': ['']},
-{'name': 'cilantro', 'type': 'seasoning', 'quantity': 0.25 , 'measurement': 'bunch', 'descriptors': [''], 'prep': ['']},
-{'name': 'olive oil', 'type': 'cooking_medium', 'quantity': 2 , 'measurement': 'teaspoons', 'descriptors': [''], 'prep': ['']},
-{'name': 'salt', 'type': 'seasoning', 'quantity': .0, 'measurement': 'to taste', 'descriptors': [''], 'prep': ['']}
-]
-#Blend the tomato, garlic and jalapeno in a blender
-#Dice the onions and cilantro
-#Add the tomato, garlic, and jalapeno mixture to a frying pan with 2 teasppons of olive oil
-#Heat over medium heat until it begins to boil, then remove from heat
-#Put the salsa in a bowl, add the cilantro and onion, stir well. 
-#Add salt to taste. 
-
-mexican_elote_ing = [{'name': 'whole kernal corn', 'type': 'vegetable', 'quantity': 2, 'measurement': 'cans', 'descriptors': [''], 'prep': ['drained']},
-{'name': 'mayonnaise', 'type': 'seasoning', 'quantity': 4, 'measurement': 'tablespoons', 'descriptors': [''], 'prep': ['']},
-{'name': 'parmesan cheese', 'type': 'protein', 'quantity': 4, 'measurement': 'tablespoons', 'descriptors': [''], 'prep': ['']},
-{'name': 'chili-lime Seasoning', 'type': 'seasoning', 'quantity': 4, 'measurement': 'teaspoons', 'descriptors': [''], 'prep': ['']},
-{'name': 'lime', 'type': 'fruit', 'quantity': 1 , 'measurement': 'whole', 'descriptors': [''], 'prep': ['']}
-]
-
-mexican_elote_steps = ['Now for the elote!', 'Heat corn in a skillet over medium heat until steaming, about 5 minutes', 'Remove from heat and drain water', 'Fill several cups or mugs halfway with the corn', 'Add 1 tablespoon mayonnaise, 1 tablespoon Parmesan cheese, and 1 to 2 teaspoons chile-lime seasoning to each cup', 'Squeeze lime juice on top']
-
-
-mexican_acl_ing = [{'name': 'water', 'type': 'cooking_medium', 'quantity': 4, 'measurement': 'cups', 'descriptors': [''], 'prep': ['drained']},
-{'name': 'cinnamon stick', 'type': 'seasoning', 'quantity': 0.5, 'measurement': 'whole', 'descriptors': [''], 'prep': ['']},
-{'name': 'white rice', 'type': 'starch', 'quantity': 2.25, 'measurement': 'cups', 'descriptors': [''], 'prep': ['uncooked']},
-{'name': 'whole milk', 'type': 'protein', 'quantity': 4, 'measurement': 'cups', 'descriptors': [''], 'prep': ['']},
-{'name': 'evaporated milk', 'type': 'protein', 'quantity': 4 , 'measurement': 'cups', 'descriptors': [''], 'prep': ['']},
-{'name': 'white sugar', 'type': 'seasoning', 'quantity': 1.25, 'measurement': 'cups', 'descriptors': [''], 'prep': ['']},
-{'name': 'ground cinnamon', 'type': 'seasoning', 'quantity': 2, 'measurement': 'pinches', 'descriptors': [''], 'prep': ['']}
-]
-mexican_acl_steps = ['Now for to add the side Arroz Con Leche', 'Combine water and cinnamon stick in a saucepan over high heat', 'Bring to a boil and cook until cinnamon releases its color and flavor, about 5 minutes', 'Add rice, reduce heat to low, cover, and cook until rice is tender and water is absorbed, about 20 minutes','Gradually add whole milk to rice, then evaporated milk', 'Stir in sugar', 'Cook uncovered until sugar is dissolved and mixture has thickened, about 10 minutes']
-
-marshmellow = [{'name': 'jumbo marshmellows', 'type': 'starch', 'quantity': 1, 'measurement': 'bag', 'descriptors': [''], 'prep': ['']}]
-marshmellow_step = ['Add jumbo marshmellows on top of your finished dessert and enjoy!']
-
-banana = [{'name': 'banana', 'type': 'fruit', 'quantity': 5, 'measurement': 'slices', 'descriptors': [''], 'prep': ['']}]
-banana_step = ['Add banana slices on top of your finished dessert and enjoy!']
-
-fried_onions = [{'name': 'crisy fried onions', 'type': 'starch', 'quantity': 24, 'measurement': 'ounces', 'descriptors': [''], 'prep': ['']}]
-fried_onions_step = ['Pour crispy fried onion bits all over your meal and enjoy!']
-
-avocado = [{'name': 'avacado', 'type': 'fruit', 'quantity': 12, 'measurement': 'slices', 'descriptors': [''], 'prep': ['']}]
-avocado_step = ['Pour avacoda slices all over your meal and enjoy!']
+substitutes = {
+	'allspice': 'half teaspoon cinnamon, quarter teaspoon ginger, and quarter teaspoon cloves per teaspoon of allspice',
+	'arrowroot starch': 'cornstarch',
+	'baking mix': 'pancake mix',
+	'baking powder': 'quarter teaspoon baking soda plus half teaspoon cream of tartar per teaspoon of baking powder',
+	'baking soda': '4 teaspoons of baking powder per teaspoon of baking soda',
+	'beer': 'chicken broth',
+	'brandy': 'imitation brandy extract and water',
+	'beef broth': 'vegetable broth',
+	'chicken broth': 'vegetable broth',
+	'brown sugar': 'white sugar',
+	'salted butter': 'margarine',
+	'unsalted butter': 'vegetable oil',
+	'butter': 'vegetable oil',
+	'buttermilk': 'yogurt',
+	'cheddar cheese': 'Monterey Jack cheese',
+	'chervil': 'parsley',
+	'chicken base': 'chicken broth',
+	'chocolate': 'cocoa',
+	'cocoa': 'chocolate',
+	'condensed cream of mushroom soup': 'condensed cream of celery',
+	'corn syrup': 'honey',
+	'cottage cheese': 'ricotta cheese',
+	'cracker crumbs': 'bread crumbs',
+	'cream': 'milk and butter',
+	'cream of tartar': 'lemon juice',
+	'crème fraiche': 'Combine 1 cup of heavy cream and 1 tablespoon of plain yogurt. Let stand for 6 hours at room temperature',
+	'egg': 'half a banana mashed with half teaspoon baking powder',
+	'evaporated milk': 'light cream',
+	"farmer's cheese": 'dry cottage cheese',
+	'fats for baking': 'applesauce',
+	'bread flour': '1 cup all-purpose flour plus 1 teaspoon wheat gluten per cup of bread flour',
+	'cake flour': '1 cup all-purpose flour minus 2 tablespoons per cup of cake flour',
+	'self-rising flour': 'seven-eighths cup all-purpose flour plus 1 and a half teaspoons baking powder and half teaspoon of salt per cup of self-rising flour',
+	'garlic': 'garlic powder',
+	'gelatin': 'agar agar',
+	'ginger': 'ground ginger',
+	'ground ginger': 'fresh ginger',
+	'green onion': 'leek',
+	'hazelnuts': 'almonds',
+	'fresh herbs': 'dried herbs',
+	'herring': 'sardines',
+	'honey': 'corn syrup',
+	'hot pepper sauce': 'three-fourths teaspoon cayenne pepper plus 1 teaspoon vinegar per teaspoon of hot pepper sauce'.
+	'lard': 'butter',
+	'lemon grass': 'lemon zest',
+	'lemon juice': 'lime juice',
+	'lemon zest': 'lemon juice',
+	'macadamia nuts': 'almonds',
+	'mace': 'nutmeg',
+	'margarine': 'butter',
+	'mayonnaise': 'sour cream',
+	'milk': 'soy milk or juice',
+	'fresh mint': 'dried mint leaves',
+	'molasses': 'Mix 3/4 cup brown sugar and 1 teaspoon cream of tartar per cup of molasses',
+	'prepared mustard': 'Mix together 1 tablespoon dried mustard, 1 teaspoon water, 1 teaspoon vinegar and 1 teaspoon sugar per tablespoon of prepared mustard',
+	'onion': 'leek',
+	'orange juice': 'other citrus juice such as lemon juice',
+	'orange zest': 'lemon juice',
+	'parmesan cheese': 'Romano cheese',
+	'parsley': 'chervil',
+	'pepperoni': 'salami',
+	'raisin': 'dried cranberries',
+	'white rice': 'barley',
+	'ricotta': 'silken tofu',
+	'rum': 'half teaspoon rum extract, plus enough water to make 1 tablespoon per tablespoon of rum',
+	'saffron': 'turmeric',
+	'salami': 'pepperoni',
+	'chocolate chips': 'chopped nuts',
+	'shallots': 'onions',
+	'shortening': 'butter',
+	'sour cream': 'plain yogurt',
+	'sour milk': '1 tablespoon vinegar or lemon juice mixed with enough milk to make 1 cup per cup of sour milk: Let stand 5 minutes to thicken',
+	'soy sauce': 'quarter cup Worcestershire sauce mixed with 1 tablespoon water per half cup of soy sauce',
+	'beef stock': '1 cube beef bouillon dissolved in 1 cup water per cup of beef stock',
+	'chicken stock': '1 cube chicken bouillon dissolved in 1 cup water per cup of chicken stock',
+	'sweetened condensed milk': '3/4 cup white sugar mixed with 1/2 cup water and 1 1/8 cups dry powdered milk per 14-ounce can of sweetened condensed milk: Bring to a boil and cook, stirring frequently, until thickened, about 20 minutes',
+	'vegetable oil': 'apple sauce for baking and vegetable shortening for frying',
+	'vinegar': 'lemon juice',
+	'white sugar': 'honey',
+	'wine': 'chicken broth',
+	'yogurt': 'sour cream'
+}
