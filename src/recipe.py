@@ -7,7 +7,6 @@ import requests
 import unicodedata
 import re
 import spacy
-import copy
 
 # Loading spacy
 nlp = spacy.load("en_core_web_sm")
@@ -35,6 +34,8 @@ class Recipe:
 				self.actions, self.ingredients, self.tools, self.valid = self.get_info()
 				self.new_text = ' '.join([self.convert_fraction(x) for x in sentence.split()])
 				self.time = self.get_time()
+				self.temp = self.get_temp()
+				self.quantities = self.get_quantities()
 
 		def __str__(self):
 			return f'(Actions: {self.actions} | Ingredients: {self.ingredients} | Tools: {self.tools} | Time: {self.time})'
@@ -167,6 +168,23 @@ class Recipe:
 					return self.text[start:end]
 
 			return 'None Specified'
+        
+		def get_temp(self):
+			temp = re.compile(r'[1-9]+[0-9]* [dD]egrees? [CF]')
+			temp2 = re.compile(r'[rR]oom [tT]emperature')
+			
+			for temp_pattern in [temp, temp2]:
+				match = temp_pattern.search(self.text)
+				if match:
+					start = match.span()[0]
+					end = match.span()[1]
+					return self.text[start:end]
+				
+		def get_quantities(self):
+			quantities = []
+			# this is not done yet
+			return quantities
+            
 
 	def __init__(self, url):
 
