@@ -107,7 +107,7 @@ substitutes = {
 	'fresh herbs': 'dried herbs',
 	'herring': 'sardines',
 	'honey': 'corn syrup',
-	'hot pepper sauce': 'three-fourths teaspoon cayenne pepper plus 1 teaspoon vinegar per teaspoon of hot pepper sauce'.
+	'hot pepper sauce': 'three-fourths teaspoon cayenne pepper plus 1 teaspoon vinegar per teaspoon of hot pepper sauce',
 	'lard': 'butter',
 	'lemon grass': 'lemon zest',
 	'lemon juice': 'lime juice',

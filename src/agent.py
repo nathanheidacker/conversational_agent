@@ -1,6 +1,7 @@
 from recipe import Recipe
 from aenum import Enum, unique, auto, extend_enum
 from transformers import pipeline
+import wordninja
 import spacy
 import re
 import pandas as pd
@@ -8,6 +9,11 @@ import numpy as np
 import requests
 import bs4
 import nltk
+import data
+
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+
 
 # A class determining possible intents for our agent
 class Intent(Enum):
@@ -57,8 +63,13 @@ class Agent():
 
 	# Given a string of natural language, returns an intent
 	def parse_intent(self, text):
-		if text in [intent.value for intent in self.intents]:
-			return self.intents(text)
+
+		# Checking explicitly for URLs
+		if 'www.allrecipes.com/recipe/' in text:
+			return self.intents.START
+
+		if len(text.split()) > 0 and text.split()[0] in [intent.value for intent in self.intents]:
+			return self.intents(text.split()[0])
 
 		elif re.match(r'^[qQ]([uU]?[iI]?[tT]?)$', text):
 			return self.intents.QUIT
@@ -67,13 +78,25 @@ class Agent():
 
 	# When the user's intent is to start a new recipe
 	def start(self, text=None):
-		print('Please provide a recipe url from AllRecipes.com')
 
-		url = ''
+		# Begin by parsing the input text for a recipe
+		url = re.search(r'.*(https://www\.allrecipes\.com/recipe/[0-9]+/.+/)', text)
+		url = url.group(1) if url else ''
 
+		# Skip asking the user the first time if we find a url
+		skip_first = True if url else False
+
+		# Allows the user to start on another recipe immediately
+		self.recipe = None
+
+		# Continue until we find a recipe or quit explicitly
 		while self.recipe is None and not re.match(r'^[qQ]([uU]?[iI]?[tT]?)$', url):
 
-			url = input('URL: ')
+			# We want to skip the first url request if the url has been provided in the query text
+			if not skip_first:
+				print('Please provide a recipe url from AllRecipes.com')
+				url = input('URL: ')
+			skip_first = False
 
 			try:
 				self.recipe = Recipe(url)
@@ -81,14 +104,10 @@ class Agent():
 				self.current_i = 0
 
 				# Successful parse
-				print(f'Okay. Today I\'ll be helping you make {self.recipe.recipe_name}.')
-				print("Here are the ingredients")
-				self.recipe.output_ingredients()
-				print("If you are all set to start with the steps. Type proceed")
-				print("Otherwise, please provide your next query")
+				print(f'Okay. Today I\'ll be helping you make {self.recipe.recipe_name}. What\'s next?')
 
 			except ValueError:
-				print('Sorry, we couldn\'t parse that url. Please try another, or type q to quit')
+				print('Sorry, we couldn\'t parse that url. Please try another, or type q to quit\n')
 
 
 	# When the user's intent is to display broad information about the recipe
@@ -110,42 +129,57 @@ class Agent():
 
 		self.current = self.recipe.steps[self.current_i]
 
+		print(self.current)
+
 	# When the user's intent is to find information online
 	def search(self, text):
-		print(self.current_i)
-		inqury = input("What do you want to ask? ")
-		current_text = self.recipe.steps[self.current_i].text
-		print(current_text)
-		tools = self.recipe.tools
-		
-		inqury = inqury.replace("?", "")
+
+		# Getting the inquiry from the text
+		inquiry = ' '.join(text.split()[1:]).replace('?', '')
+
 		do_can_words = ["can", "could",  "do", "carry out", "execute", "perform", "implement", "complete", "finish", "bring about", "effect", "pull off"]
 		assumes_vague = ["this", "that", "these", "those", "such"]
-		if "what is" in inqury.lower() or "what's" in inqury.lower() or "whats" in inqury.lower():
-    			tool_check = inqury.split()
-    			for tool in tools:
-        			for word in tool_check:
-            				if word in tool:
-                				inqury = inqury + "tool"
-    			if "for cooking" not in inqury.lower():
-        			inqury = inqury + " for cooking"
-		step = nltk.word_tokenize(inqury)
-		tags = nltk.pos_tag(step)
+
+		# Adding words to make the google query more accurate
+		for q_word in ['what is', 'what\'s', 'whats']:
+			if q_word in inquiry.lower():
+
+				tools = self.recipe.tools if self.recipe else data.tools
+				for tool in tools:
+					if tool in inquiry:
+						inquiry += 'tool'
+						break
+
+				# Helps with query accuracy
+				if 'for cooking' not in inquiry.lower():
+					inquiry += ' for cooking'
+
+        # Finding out if the question is a vague one
+		step = nltk.word_tokenize(inquiry)
 		vague_question = False
+
 		for vague_word in assumes_vague:
-    			if vague_word in inqury:
-        			vague_question = True
-		for duo in tags:
-    			(word, tag) = duo
-    			if "NN" in tag:
-        			vague_question = False
-		if vague_question == True:
-			inqury = "How do I " + current_text
+			if vague_word in inquiry:
+				vague_question = True
+				break
+
+		tags = ' '.join([tag for _, tag in nltk.pos_tag(step)])
+		vague_question = False if 'NN' in tags else vague_question
+
+		# Vague questions are not permitted unless we have an active recipe
+		if not self.recipe and vague_question:
+			print('It seems that you\'re asking a question about a recipe, but you aren\'t current in one.')
+			return
+
+        # Making the inquiry more explicit if it is vague
+		inquiry = ("How do I " + inquiry) if vague_question else inquiry
 			
-		url = "https://google.com/search?q=" + inqury
+		# Getting the google result
+		url = "https://google.com/search?q=" + inquiry
 		request_result = requests.get(url)
 		soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
 		answer = soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text
+		answer = answer.replace('... ', ' ').replace('  ', ' ')
 		print(answer)
 
 	# When the user's intent is to get some parameter about an ingredient or step
@@ -198,8 +232,8 @@ class Agent():
 			# The user is currently in a recipe (all actions available)
 			else:
 				action = self.intent_action()
-				print()
 				action(user_input)
+				print()
 				self.history.append((self.current_intent.name, user_input))
 
 		print('Glad I could be of assistance!')

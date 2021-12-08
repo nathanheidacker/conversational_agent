@@ -1,0 +1,8 @@
+aenum
+transformers
+wordninja
+spacy
+pandas
+numpy
+bs4
+nltk
