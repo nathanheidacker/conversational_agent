@@ -346,7 +346,6 @@ class Agent():
 
 	# When the user's intent is to find a suitable substitute for an ingredient
 	def substitute(self, text):
-		# sub_res = [r"What can I substitute for (.*)", r"What is a good replacement for (.*)"]
 		sub_found = False
 		for ing_name in data.substitutes:
 			if ing_name in text:
@@ -365,14 +364,6 @@ class Agent():
 					print("You can substitute " + new_ing + " with " + sub + ".")
 					sub_found = True
 					break
-
-		if not sub_found:
-			url = "https://google.com/search?q=" + text
-			request_result = requests.get(url)
-			soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
-			answer = soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text
-			answer = answer.replace('... ', ' ').replace('  ', ' ')
-			print(answer)
 
 	# When the user's intent is not understood
 	def unknown(self, text):
