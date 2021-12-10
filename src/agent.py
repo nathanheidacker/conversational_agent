@@ -243,15 +243,20 @@ class Agent():
 		# Making the inquiry more explicit if it is vague
 		inquiry = ("How do I " + inquiry) if vague_question else inquiry
 		# print(inquiry)
+	
 		# Getting the google result
 		inqury = inquiry.replace(' ', '+')
 		url = "https://google.com/search?q=" + inquiry
 		# print(url)
 		request_result = requests.get(url)
 		soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
-		answer = soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text
-		answer = answer.replace('... ', ' ').replace('  ', ' ')
-		print(answer)
+		if soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text:
+			print("Searching google for " + '"' + inqury + '"')
+			print("If answer doesn't make sense, please make the question more specific\n")
+			answer = answer.replace('... ', ' ').replace('  ', ' ')
+			print(answer)
+		else:
+			print("Unfortunately your search implemented no results, please try a more specific question")
 
 	# When the user's intent is to get some parameter about an ingredient or step
 	def get_param(self, text):
