@@ -172,6 +172,7 @@ class Agent():
 		if not re.search('[a-zA-Z]', text):
 			text = input("What would you like to search: ")
 			print(text)
+			
 		# Getting the inquiry from the text
 		inquiry = ' '.join(text.split()[1:]).replace('?', '')
 		#print(inquiry)
