@@ -10,6 +10,7 @@ import requests
 import bs4
 import nltk
 import data
+import rapidfuzz
 
 
 # A class determining possible intents for our agent
@@ -21,7 +22,6 @@ class Intent(Enum):
 	GET_PARAM = 'get_param'
 	SUBSTITUTE = 'substitute'
 	QUIT = 'quit'
-	ACKNOWLEDGE = 'acknowledge'
 	UNKNOWN = 'unknown'
 
 	def __init__(self, value, index=[0]):
@@ -53,7 +53,7 @@ class Agent():
 
 	# Returns true if any of the words in words are in the input text
 	@staticmethod
-	def any_in_text(words):
+	def any_in_text(words, text):
 		bools = [(word in text) for word in words]
 		return True if True in bools else False
 
@@ -173,12 +173,12 @@ class Agent():
 		if not re.search('[a-zA-Z]', text):
 			text = input("What would you like to search: ")
 			print(text)
-			
+
 		# Getting the inquiry from the text
 		inquiry = ' '.join(text.split()[1:]).replace('?', '')
-		#print(inquiry)
+		# print(inquiry)
 
-		#do_can_words = ["can", "could",  "do", "carry out", "execute", "perform", "implement", "complete", "finish", "bring about", "effect", "pull off"]
+		# do_can_words = ["can", "could",  "do", "carry out", "execute", "perform", "implement", "complete", "finish", "bring about", "effect", "pull off"]
 		assumes_vague = ["this", "that", "these", "those", "such"]
 
 		# Adding words to make the google query more accurate
@@ -194,9 +194,9 @@ class Agent():
 				# Helps with query accuracy
 				if 'for cooking' not in inquiry.lower():
 					inquiry += ' for cooking'
-		#print(inquiry)
+		# print(inquiry)
 
-        # Finding out if the question is a vague one
+		# Finding out if the question is a vague one
 		step = nltk.word_tokenize(inquiry)
 		vague_question = False
 
@@ -214,22 +214,134 @@ class Agent():
 			return
 		if vague_question:
 			inquiry = self.current.text
-        # Making the inquiry more explicit if it is vague
+		# Making the inquiry more explicit if it is vague
 		inquiry = ("How do I " + inquiry) if vague_question else inquiry
-		#print(inquiry)	
+		# print(inquiry)
 		# Getting the google result
 		inqury = inquiry.replace(' ', '+')
 		url = "https://google.com/search?q=" + inquiry
-		#print(url)
+		# print(url)
 		request_result = requests.get(url)
 		soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
 		answer = soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text
 		answer = answer.replace('... ', ' ').replace('  ', ' ')
 		print(answer)
 
-
 	# When the user's intent is to get some parameter about an ingredient or step
 	def get_param(self, text):
+		step = self.recipe.steps[self.current_i]
+		text = text.replace('?', '')
+		if 'temperature' in text.lower():
+			# temp
+			if step.temp == 'None Specified':
+				# case
+				found_temp = False
+				backtrack_step = current_i - 1
+				while backtrack_step >= 0:
+					t = self.recipe.steps[backtrack_step].temp
+					if t != 'None Specified':
+						found_temp = True
+						print(t)
+						break
+					backtrack_step -= 1
+				if not found_temp:
+					print("We couldn't find any temperatures in the recipe up to the current step.")
+			else:
+				print(step.temp)
+		elif 'how much' in text.lower():
+			# quantity
+			# preprocessing to identify the ingredient
+			if len(text) < 8:
+				print("Query too short")
+				return
+
+			ind = text.lower().index('how much')
+			ing_name = text[ind+9:].lower()
+			if 'do i need' in ing_name:
+				ind = ing_name.index('do i need')
+				ing_name = ing_name[:ind]
+
+			ing_index = -1
+			if ing_name not in self.recipe.ingredient_indices:
+				for ing in self.recipe.ingredient_indices:
+					if rapidfuzz.fuzz.partial_ratio(ing, ing_name) == 100:
+						ing_index = self.recipe.ingredient_indices[ing]
+						break
+
+			else:
+				ing_index = self.recipe.ingredient_indices[ing_name]
+
+			ingredient = self.recipe.ingredients[ing_index]
+			if len(step.quantities) == 0:
+				if ingredient['quantity'] == 0.0:
+					print("The recipe doesn't specify a quantity for this ingredient.")
+				else:
+					print(str(ingredient['quantity']) + ' ' + ingredient['measurement'])
+
+			else:
+				found_specific_quantity = False
+				for quantity in step.quantities:
+					s = quantity.split()
+					if rapidfuzz.fuzz.partial_ratio(s[1], ingredient['measurement']) == 100 and float(s[0]) <= \
+							ingredient['quantity']:
+						found_specific_quantity = True
+						print(quantity)
+						break
+
+				if not found_specific_quantity:
+					# Assume the ingredient is used fully because couldn't find a suitable match quantity+measurements
+					if ingredient['quantity'] == 0.0:
+						print("The recipe doesn't specify a quantity for this ingredient.")
+					else:
+						print(str(ingredient['quantity']) + ' ' + ingredient['measurement'])
+
+		elif 'how long' in text.lower() or 'when' in text.lower():
+			# time
+			if step.time == 'None Specified':
+				minutes = 0
+				overall_time = self.recipe.total_time
+				if 'hr' in overall_time:
+					hour_index = overall_time.index('hr')
+					hours = float(overall_time[:hour_index].strip())
+					minutes += hours * 60
+					overall_time = overall_time[hour_index+2:]
+
+				# happens with 8 hrs 5 min or so
+				if overall_time[0] == 's':
+					overall_time = overall_time[1:]
+				if 'min' in overall_time:
+					min_index = overall_time.index('min')
+					mins = float(overall_time[:min_index].strip())
+					minutes += mins
+
+				steps_no_time = 0
+				for any_step in self.recipe.steps:
+					if any_step.time == 'None Specified':
+						steps_no_time += 1
+					else:
+						time = any_step.time
+						if 'hour' in time:
+							hour_index = time.index('hour')
+							hours = float(time[:hour_index].strip())
+							minutes -= hours * 60
+							time = time[hour_index + 4:]
+						if time[0] == 's':
+							time = time[1:]
+						if 'minute' in time:
+							minute_index = time.index('minute')
+							mins = float(time[:minute_index].strip())
+							minutes -= mins
+
+				estimated_time = minutes / steps_no_time
+				if estimated_time < 1:
+					estimated_seconds = str(int(estimated_time * 60))
+					print("The time wasn't mentioned in the original recipe. We estimate it will take " + estimated_seconds + " seconds.")
+				else:
+					estimated_time = str(int(estimated_time))
+					print("The time wasn't mentioned in the original recipe. We estimate it will take " + estimated_time + " minutes.")
+			else:
+				print(step.time)
+
 		pass
 
 	# When the user's intent is to find a suitable substitute for an ingredient
@@ -266,31 +378,11 @@ class Agent():
 	def unknown(self, text):
 		print(f'Sorry, I didn\'t quite understand that. Could you try again?')
 
-	# When the user is acknowledges stuff, they are prompted if they want to move on to the next step: 	
-	def acknowledge(self, text):
-		
-		user_input = input('Okay are you ready for the next step? (y/n): ')
-
-		if user_input.lower() == 'y':
-			self.current_i += 1
-			print_step = True
-			if self.current_i > len(self.recipe.steps) - 1:
-				self.current_i = last_step_i
-				print('This is the last step.')
-				print_step = False
-			self.current = self.recipe.steps[self.current_i]
-			if print_step: print(self.current.text)
-
-		elif user_input.lower() == 'n':
-			print('\nOk. Let me know if you need anything else')
-		else:
-			ask = False
-			
 	# Call to run the bot
 	def run(self):
 
 		# Intents that require us to be working with a recipe.
-		require_recipe = [Intent.SHOW, self.intents.NAVIGATE, self.intents.GET_PARAM, self.intents.ACKNOWLEDGE]
+		require_recipe = [Intent.SHOW, self.intents.NAVIGATE, self.intents.GET_PARAM]
 
 		print(
 			f'\nHello, and welcome to Nathan, Jason, and Ricky\'s cooking assistant. My name is {self.name}, and I will guide you through any recipe from AllRecipes.com! How can I be of service today?')
