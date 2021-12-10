@@ -11,10 +11,6 @@ import bs4
 import nltk
 import data
 
-nltk.download('punkt')
-nltk.download('averaged_perceptron_tagger')
-
-
 # A class determining possible intents for our agent
 class Intent(Enum):
 	START = 'start'
@@ -54,6 +50,12 @@ class Agent():
 
 		# Keeping a history of actions
 		self.history = []
+
+	# Returns true if any of the words in words are in the input text
+	@staticmethod
+	def any_in_text(words):
+			bools = [(word in text) for word in words]
+			return True if True in bools else False
 
 	# Get the corresponding function for an intent
 	def intent_action(self, intent=None):
@@ -112,24 +114,57 @@ class Agent():
 
 	# When the user's intent is to display broad information about the recipe
 	def show(self, text):
-		print(self.current.text)
+
+		text = text.lower()
+		to_show = ''
+
+		if 'ingredient' in text:
+			self.recipe.output_ingredients()
+
+		elif 'name' in text:
+			to_show = self.recipe.name
+
+		elif 'your name' in text:
+			to_show = self.name
+
+		elif 'steps' in text:
+			to_show = f'There are {len(self.recipe.steps)} steps.'
+
+		elif self.any_in_text(['time', 'long'], text):
+			to_show = self.current
+
+		if to_show: print(to_show)
 
 	# When the user's intent is to navigate to a different step of the recipe
 	def navigate(self, text):
 
-		# determine where/how to move
-		# SOME FUNCTION HERE
-		direction = 'forward'
+		forward = ['next', 'after', 'forward']
+		backward = ['last', 'before', 'previous', 'backward']
 
-		# Moving
-		if direction == 'forward':
-			self.current_i += 1
-		else:
-			self.current_i -= 1
+		# determine where/how to move
+		direction = 0
+		if self.any_in_text(forward, text):
+			direction = 1
+		elif self.any_in_text(backward, text):
+			direction = -1
+
+		self.current_i += direction
+
+		print_step = True
+
+		if self.current_i > len(self.recipe.steps) - 1:
+			self.current_i = last_step_i
+			print('This is the last step.')
+			print_step = False
+
+		elif self.current_i < 0:
+			self.current_i = 0
+			print('This is the first step.')
+			print_step = False
 
 		self.current = self.recipe.steps[self.current_i]
 
-		print(self.current)
+		if print_step: print(self.current.text)
 
 	# When the user's intent is to find information online
 	def search(self, text):
@@ -146,7 +181,7 @@ class Agent():
 
 				tools = self.recipe.tools if self.recipe else data.tools
 				for tool in tools:
-					if tool in inquiry:
+					if tool in inquiry.lower():
 						inquiry += 'tool'
 						break
 
@@ -221,6 +256,7 @@ class Agent():
 				user_input = input('Start recipe? (y/n): ')
 				
 				if user_input.lower() == 'y':
+					self.current_intent = self.intents.START
 					self.start()
 
 				elif user_input.lower() == 'n':
@@ -241,6 +277,10 @@ class Agent():
 		
 
 def main():
+
+	# NLTK requirements
+	nltk.download('punkt')
+	nltk.download('averaged_perceptron_tagger')
 
 	# Loading spacy
 	nlp = spacy.load("en_core_web_sm")

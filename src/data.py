@@ -147,3 +147,109 @@ substitutes = {
 	'wine': 'chicken broth',
 	'yogurt': 'sour cream'
 }
+
+
+# -- INTENT TEMPLATES --
+
+## Intent: START
+start = [
+	'I\'d like to start a recipe',
+	'start',
+	'start a recipe',
+	'lets start a recipe',
+	'begin recipe',
+	'begin',
+	'lets make something',
+	'lets make a recipe'
+]
+
+# This intent is for showing information about the RECIPE, not the step
+## Intent: SHOW
+show = [
+	'What are the ingredients',
+	'show me the ingredients',
+	'show ingredients',
+	'whats this recipe called',
+	'show me the recipe name',
+	'show recipe name',
+	'show recipe ingredients',
+	'show recipe time',
+]
+
+## Intent: NAVIGATE
+navigate = [
+	'What is the next step',
+	'Show me the next step',
+	'whats next',
+	'Show me the last step',
+	'Show me the first step',
+	'Show me the second step',
+	'What is the fourth step',
+	'What was the last step',
+	'Repeat the last step',
+	'Go backward',
+	'Go forward',
+	'What was before that',
+	'What was the step before that',
+	'What is after that',
+	'What is the step after that',
+	'Take me back',
+	'Go back one step',
+	'Go forward one step'
+	'Go to the next step',
+	'Tell me the next step',
+	'Tell me the previous step',
+	'Next step',
+	'Previous step',
+	'Last step',
+	'Next',
+	'I\'m done with this step',
+	'Take me to the last step',
+	'I finished',
+]
+
+## Intent: SEARCH
+search = [
+	'How do I (action) something',
+	'How do I (action) something with a (tool)',
+	'What is (food)',
+	'What is (tool)',
+	'How can I (action) (food)'
+]
+
+# This intent is for showing information about the STEP not the recipe
+## Intent: GET_PARAM
+get_param = [
+	'how long does (food) cook',
+	'how long do I put it in for',
+	'for how long',
+	'how long does that take',
+	'what is the temperature',
+	'what temperature',
+	'what temperature does (food) cook',
+	'When is it done',
+	'How much (food) do I need',
+	'How much (food)'
+]
+
+## Intent: SUBSTITUTE
+substitute = [
+	'What can I susbtitute for (food)',
+	'What is a good replacement for (food)',
+	'I dont have any (food)',
+	'What can I use instead of (food)',
+	'replace (food)',
+	'substitute (food)',
+	'What can I use instead',
+	'I do not want to use that',
+	'How can I substitute (food)'
+]
+
+## Intent: UKNOWN
+unknown = [
+	'(food) (food)',
+	'',
+	'     ',
+	'(tool) (tool)',
+	'(action) (action)',
+]

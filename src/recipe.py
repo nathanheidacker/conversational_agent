@@ -159,15 +159,16 @@ class Recipe:
 			minutes = re.compile(r'[1-9]+[0-9]* [mM]inutes?')
 			hours = re.compile(r'[1-9]+[0-9]* [hH]ours?')
 
-			for time_pattern in [seconds, minutes, hours]:
+			result = ''
+			for time_pattern in [hours, minutes, seconds]:
 				match = time_pattern.search(self.text)
 				if match:
 					start = match.span()[0]
 					end = match.span()[1]
 					
-					return self.text[start:end]
+					result += self.text[start:end] + ' '
 
-			return 'None Specified'
+			return result.strip() if result else 'None Specified'
         
 		def get_temp(self):
 			temp = re.compile(r'[1-9]+[0-9]* [dD]egrees? [CF]')
@@ -334,7 +335,8 @@ class Recipe:
 				'quantity': .0,
 				'measurement': '',
 				'descriptors': [],
-				'prep': []
+				'prep': [],
+				'text': string
 			}
 
 			# Very special case
@@ -524,30 +526,48 @@ class Recipe:
 		'''
 
 		return steps
+
 	def output_ingredients(self):
-			print("Ingredients: ")
-			for info in self.ingredients:
-				if info['quantity'] == 0.0:
-					print(info['name'], info['measurement'])
+			print("\n--INGREDIENTS--\n")
+			for ingredient in self.ingredients:
+
+				ingredient = ingredient['text'].strip().split()
+				for i, word in enumerate(ingredient):
+					try:
+						num = self.convert_fraction(word)
+						ingredient[i] = str((int(num) if num % 1 == 0 else round(num, 2)))
+					except ValueError:
+						continue
+
+				print(' '.join(ingredient))
+
+
+				'''
+				# Cleaning prep steps
+				prep= ', '.join(info['prep'])
+				if len(prep) > 0:
+					prep = ', ' + prep
+
+				# Cleaning descriptors
+				descriptors = [d for d in info['descriptors'] if d not in info['name']]
+				d = ' ' + ', '.join(descriptors)
+				if len(d) == 1:
+					d = ''
+
+				# Cleaning quantity, measurement, name
+				q = info['quantity']
+				q = str((int(q) if q % 1 == 0 else q))
+
+				m = '' if info['measurement'] == 'whole' else info['measurement']
+
+				n = info['name']
+
+				if m:
+					print(q + d, m, n + prep)
 				else:
-					prep_string = ', '.join(info['prep'])
-					if len(prep_string) > 0:
-						prep_string = ', ' + prep_string
-					descriptors_not_in_name = [d for d in info['descriptors'] if d not in info['name']]
-					d = ' ' + ', '.join(descriptors_not_in_name)
-					if len(d) == 1:
-						d = ''
-					q = info['quantity']
-					if q % 1 == 0.0:
-						q = str(int(q))
-					else:
-						q = str(q)
-					m = '' if info['measurement'] == 'whole' else info['measurement']
-					n = info['name']
-					if len(m) == 0:
-						print(q + d, n + prep_string)
-					else:
-						print(q + d, m, n + prep_string)
+					print(q + d, n + prep)
+				'''
+
 
 # Returns a valid recipe url based on an integer input
 def get_recipe_url(num=259356):
