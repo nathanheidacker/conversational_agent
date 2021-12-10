@@ -564,7 +564,16 @@ class Recipe:
 		'''
 
 		return steps
-
+	def output_steps(self):
+		print("Instructions:")
+		counter = 1
+		for step in self.steps:
+			if isinstance(step, str):
+				print(str(counter) + '. ' + step)
+			else:
+				print(str(counter) + '. ' + step.new_text)
+			counter += 1
+			
 	def output_ingredients(self):
 			print("\n--INGREDIENTS--\n")
 			for ingredient in self.ingredients:
