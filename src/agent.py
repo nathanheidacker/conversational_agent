@@ -111,7 +111,11 @@ class Agent():
 				self.current_i = 0
 
 				# Successful parse
-				print(f'Okay. Today I\'ll be helping you make {self.recipe.recipe_name}. What\'s next?')
+				print(f'Okay. Today I\'ll be helping you make {self.recipe.recipe_name}.')
+				self.recipe.output_ingredients()
+				print("You are currently on the first step: ")
+				print(self.current.text)
+				print('What\'s next?')
 
 			except ValueError:
 				print('Sorry, we couldn\'t parse that url. Please try another, or type q to quit\n')
@@ -173,7 +177,6 @@ class Agent():
 	# When the user's intent is to find information online
 	def search(self, text):
 
-		text = text.replace('search', '')
 		text = text.replace('?', '')
 		if not re.search('[a-zA-Z]', text):
 			text = input("What would you like to search: ")
