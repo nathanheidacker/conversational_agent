@@ -21,6 +21,7 @@ class Intent(Enum):
 	GET_PARAM = 'get_param'
 	SUBSTITUTE = 'substitute'
 	QUIT = 'quit'
+	ACKNOWLEDGE = 'acknowledge'
 	UNKNOWN = 'unknown'
 
 	def __init__(self, value, index=[0]):
@@ -265,11 +266,31 @@ class Agent():
 	def unknown(self, text):
 		print(f'Sorry, I didn\'t quite understand that. Could you try again?')
 
+	# When the user is acknowledges stuff, they are prompted if they want to move on to the next step: 	
+	def acknowledge(self, text):
+		
+		user_input = input('Okay are you ready for the next step? (y/n): ')
+
+		if user_input.lower() == 'y':
+			self.current_i += 1
+			print_step = True
+			if self.current_i > len(self.recipe.steps) - 1:
+				self.current_i = last_step_i
+				print('This is the last step.')
+				print_step = False
+			self.current = self.recipe.steps[self.current_i]
+			if print_step: print(self.current.text)
+
+		elif user_input.lower() == 'n':
+			print('\nOk. Let me know if you need anything else')
+		else:
+			ask = False
+			
 	# Call to run the bot
 	def run(self):
 
 		# Intents that require us to be working with a recipe.
-		require_recipe = [Intent.SHOW, self.intents.NAVIGATE, self.intents.GET_PARAM]
+		require_recipe = [Intent.SHOW, self.intents.NAVIGATE, self.intents.GET_PARAM, self.intents.ACKNOWLEDGE]
 
 		print(
 			f'\nHello, and welcome to Nathan, Jason, and Ricky\'s cooking assistant. My name is {self.name}, and I will guide you through any recipe from AllRecipes.com! How can I be of service today?')
