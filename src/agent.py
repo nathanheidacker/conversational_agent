@@ -11,6 +11,7 @@ import bs4
 import nltk
 import data
 
+
 # A class determining possible intents for our agent
 class Intent(Enum):
 	START = 'start'
@@ -22,9 +23,7 @@ class Intent(Enum):
 	QUIT = 'quit'
 	UNKNOWN = 'unknown'
 
-
 	def __init__(self, value, index=[0]):
-
 		# Giving the enum an index for category determination
 		self.i = index[0]
 		index[0] += 1
@@ -38,7 +37,7 @@ class Agent():
 		# General bot information
 		self.name = 'RecipeBot'
 		self.recipe = None
-		#self.classifier = pipeline('zero-shot-classification')
+		# self.classifier = pipeline('zero-shot-classification')
 
 		# Associating intents with agent functions
 		self.intents = Intent
@@ -54,8 +53,8 @@ class Agent():
 	# Returns true if any of the words in words are in the input text
 	@staticmethod
 	def any_in_text(words):
-			bools = [(word in text) for word in words]
-			return True if True in bools else False
+		bools = [(word in text) for word in words]
+		return True if True in bools else False
 
 	# Get the corresponding function for an intent
 	def intent_action(self, intent=None):
@@ -110,7 +109,6 @@ class Agent():
 
 			except ValueError:
 				print('Sorry, we couldn\'t parse that url. Please try another, or type q to quit\n')
-
 
 	# When the user's intent is to display broad information about the recipe
 	def show(self, text):
@@ -169,10 +167,16 @@ class Agent():
 	# When the user's intent is to find information online
 	def search(self, text):
 
+		text = text.replace('search', '')
+		text = text.replace('?', '')
+		if not re.search('[a-zA-Z]', text):
+			text = input("What would you like to search: ")
+			print(text)
 		# Getting the inquiry from the text
 		inquiry = ' '.join(text.split()[1:]).replace('?', '')
+		#print(inquiry)
 
-		do_can_words = ["can", "could",  "do", "carry out", "execute", "perform", "implement", "complete", "finish", "bring about", "effect", "pull off"]
+		#do_can_words = ["can", "could",  "do", "carry out", "execute", "perform", "implement", "complete", "finish", "bring about", "effect", "pull off"]
 		assumes_vague = ["this", "that", "these", "those", "such"]
 
 		# Adding words to make the google query more accurate
@@ -188,6 +192,7 @@ class Agent():
 				# Helps with query accuracy
 				if 'for cooking' not in inquiry.lower():
 					inquiry += ' for cooking'
+		#print(inquiry)
 
         # Finding out if the question is a vague one
 		step = nltk.word_tokenize(inquiry)
@@ -203,19 +208,23 @@ class Agent():
 
 		# Vague questions are not permitted unless we have an active recipe
 		if not self.recipe and vague_question:
-			print('It seems that you\'re asking a question about a recipe, but you aren\'t current in one.')
+			print('It seems that you\'re asking a question about a recipe, but you aren\'t currently in one.')
 			return
-
+		if vague_question:
+			inquiry = self.current.text
         # Making the inquiry more explicit if it is vague
 		inquiry = ("How do I " + inquiry) if vague_question else inquiry
-			
+		#print(inquiry)	
 		# Getting the google result
+		inqury = inquiry.replace(' ', '+')
 		url = "https://google.com/search?q=" + inquiry
+		#print(url)
 		request_result = requests.get(url)
 		soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
 		answer = soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text
 		answer = answer.replace('... ', ' ').replace('  ', ' ')
 		print(answer)
+
 
 	# When the user's intent is to get some parameter about an ingredient or step
 	def get_param(self, text):
@@ -223,7 +232,33 @@ class Agent():
 
 	# When the user's intent is to find a suitable substitute for an ingredient
 	def substitute(self, text):
-		pass
+		# sub_res = [r"What can I substitute for (.*)", r"What is a good replacement for (.*)"]
+		sub_found = False
+		for ing_name in data.substitutes:
+			if ing_name in text:
+				sub = data.substitutes[ing_name]
+				print("You can substitute " + ing_name + " with " + sub + ".")
+				sub_found = True
+				break
+			else:
+				new_ing = ''
+				if ing_name[-1] == 's':
+					new_ing = ing_name[:-1]
+				else:
+					new_ing = ing_name + 's'
+				if new_ing in text:
+					sub = data.substitutes[ing_name]
+					print("You can substitute " + new_ing + " with " + sub + ".")
+					sub_found = True
+					break
+
+		if not sub_found:
+			url = "https://google.com/search?q=" + text
+			request_result = requests.get(url)
+			soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
+			answer = soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text
+			answer = answer.replace('... ', ' ').replace('  ', ' ')
+			print(answer)
 
 	# When the user's intent is not understood
 	def unknown(self, text):
@@ -234,8 +269,9 @@ class Agent():
 
 		# Intents that require us to be working with a recipe.
 		require_recipe = [Intent.SHOW, self.intents.NAVIGATE, self.intents.GET_PARAM]
-		
-		print(f'\nHello, and welcome to Nathan, Jason, and Ricky\'s cooking assistant. My name is {self.name}, and I will guide you through any recipe from AllRecipes.com! How can I be of service today?')
+
+		print(
+			f'\nHello, and welcome to Nathan, Jason, and Ricky\'s cooking assistant. My name is {self.name}, and I will guide you through any recipe from AllRecipes.com! How can I be of service today?')
 
 		ask = True
 
@@ -250,11 +286,12 @@ class Agent():
 
 			# In the case that the user is not currently in a recipe, but is trying to perform an action that requires one
 			if self.current is None and self.current_intent in require_recipe:
-				
-				print(f'\nSorry, but it seems like you\'re trying to do something that requires a specific recipe. Would you like to start on one now?')
+
+				print(
+					f'\nSorry, but it seems like you\'re trying to do something that requires a specific recipe. Would you like to start on one now?')
 
 				user_input = input('Start recipe? (y/n): ')
-				
+
 				if user_input.lower() == 'y':
 					self.current_intent = self.intents.START
 					self.start(user_input)
@@ -274,10 +311,8 @@ class Agent():
 
 		print('Glad I could be of assistance!')
 
-		
 
 def main():
-
 	# NLTK requirements
 	nltk.download('punkt')
 	nltk.download('averaged_perceptron_tagger')
