@@ -257,7 +257,7 @@ class Agent():
 				
 				if user_input.lower() == 'y':
 					self.current_intent = self.intents.START
-					self.start()
+					self.start(user_input)
 
 				elif user_input.lower() == 'n':
 					print('\nOk. Let me know if you need anything else')
