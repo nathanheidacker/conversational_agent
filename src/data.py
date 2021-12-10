@@ -244,20 +244,14 @@ get_param = [
 ]
 
 ## Intent: SUBSTITUTE
-'''
 substitute = [
 	'What can I susbtitute for (food)',
 	'What is a good replacement for (food)',
-	'I dont have any (food)',
 	'What can I use instead of (food)',
 	'replace (food)',
 	'substitute (food)',
-	'What can I use instead',
-	'I do not want to use that',
 	'How can I substitute (food)'
 ]
-'''
-substitute = ['hehexd']
 
 ## Intent: UKNOWN
 unknown = [
