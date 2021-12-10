@@ -168,6 +168,15 @@ class Agent():
 
 	# When the user's intent is to find information online
 	def search(self, text):
+		#If the search was empty, this gives the user an opportunity to properly search
+		text = text.replace('search', '')
+		text = text.replace('?', '')
+		if not re.search('[a-zA-Z]', text):
+			text = input("What would you like to search: ")
+			print(text)
+		# Getting the inquiry from the text
+		inquiry = ' '.join(text.split()[1:]).replace('?', '')
+		print(inquiry)
 
 		# Getting the inquiry from the text
 		inquiry = ' '.join(text.split()[1:]).replace('?', '')
