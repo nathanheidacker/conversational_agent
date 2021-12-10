@@ -255,3 +255,18 @@ unknown = [
 	'(tool) (tool)',
 	'(action) (action)',
 ]
+
+## Intent: ACKNOWLEDGE
+acknowledge = [
+	'Okay',
+	'Yes',
+	'Fine',
+	'Sure',
+	'Understand',
+	'Alright'
+	'All right'
+	'okey-dokey'
+	'roger'
+	'uh-huh'
+	'OK'
+]
