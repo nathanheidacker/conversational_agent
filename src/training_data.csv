@@ -1,0 +1,1401 @@
+,text,label
+0,I'd like to start a recipe,start
+1,I'd like to start a recipe,start
+2,I'd like to start a recipe,start
+3,I'd like to start a recipe,start
+4,I'd like to start a recipe,start
+5,I'd like to start a recipe,start
+6,I'd like to start a recipe,start
+7,I'd like to start a recipe,start
+8,I'd like to start a recipe,start
+9,I'd like to start a recipe,start
+10,I'd like to start a recipe,start
+11,I'd like to start a recipe,start
+12,I'd like to start a recipe,start
+13,I'd like to start a recipe,start
+14,I'd like to start a recipe,start
+15,I'd like to start a recipe,start
+16,I'd like to start a recipe,start
+17,I'd like to start a recipe,start
+18,I'd like to start a recipe,start
+19,I'd like to start a recipe,start
+20,I'd like to start a recipe,start
+21,I'd like to start a recipe,start
+22,I'd like to start a recipe,start
+23,I'd like to start a recipe,start
+24,I'd like to start a recipe,start
+25,I'd like to start a recipe,start
+26,start,start
+27,start,start
+28,start,start
+29,start,start
+30,start,start
+31,start,start
+32,start,start
+33,start,start
+34,start,start
+35,start,start
+36,start,start
+37,start,start
+38,start,start
+39,start,start
+40,start,start
+41,start,start
+42,start,start
+43,start,start
+44,start,start
+45,start,start
+46,start,start
+47,start,start
+48,start,start
+49,start,start
+50,start,start
+51,start,start
+52,start a recipe,start
+53,start a recipe,start
+54,start a recipe,start
+55,start a recipe,start
+56,start a recipe,start
+57,start a recipe,start
+58,start a recipe,start
+59,start a recipe,start
+60,start a recipe,start
+61,start a recipe,start
+62,start a recipe,start
+63,start a recipe,start
+64,start a recipe,start
+65,start a recipe,start
+66,start a recipe,start
+67,start a recipe,start
+68,start a recipe,start
+69,start a recipe,start
+70,start a recipe,start
+71,start a recipe,start
+72,start a recipe,start
+73,start a recipe,start
+74,start a recipe,start
+75,start a recipe,start
+76,start a recipe,start
+77,start a recipe,start
+78,lets start a recipe,start
+79,lets start a recipe,start
+80,lets start a recipe,start
+81,lets start a recipe,start
+82,lets start a recipe,start
+83,lets start a recipe,start
+84,lets start a recipe,start
+85,lets start a recipe,start
+86,lets start a recipe,start
+87,lets start a recipe,start
+88,lets start a recipe,start
+89,lets start a recipe,start
+90,lets start a recipe,start
+91,lets start a recipe,start
+92,lets start a recipe,start
+93,lets start a recipe,start
+94,lets start a recipe,start
+95,lets start a recipe,start
+96,lets start a recipe,start
+97,lets start a recipe,start
+98,lets start a recipe,start
+99,lets start a recipe,start
+100,lets start a recipe,start
+101,lets start a recipe,start
+102,lets start a recipe,start
+103,lets start a recipe,start
+104,begin recipe,start
+105,begin recipe,start
+106,begin recipe,start
+107,begin recipe,start
+108,begin recipe,start
+109,begin recipe,start
+110,begin recipe,start
+111,begin recipe,start
+112,begin recipe,start
+113,begin recipe,start
+114,begin recipe,start
+115,begin recipe,start
+116,begin recipe,start
+117,begin recipe,start
+118,begin recipe,start
+119,begin recipe,start
+120,begin recipe,start
+121,begin recipe,start
+122,begin recipe,start
+123,begin recipe,start
+124,begin recipe,start
+125,begin recipe,start
+126,begin recipe,start
+127,begin recipe,start
+128,begin recipe,start
+129,begin recipe,start
+130,begin,start
+131,begin,start
+132,begin,start
+133,begin,start
+134,begin,start
+135,begin,start
+136,begin,start
+137,begin,start
+138,begin,start
+139,begin,start
+140,begin,start
+141,begin,start
+142,begin,start
+143,begin,start
+144,begin,start
+145,begin,start
+146,begin,start
+147,begin,start
+148,begin,start
+149,begin,start
+150,begin,start
+151,begin,start
+152,begin,start
+153,begin,start
+154,begin,start
+155,begin,start
+156,lets make something,start
+157,lets make something,start
+158,lets make something,start
+159,lets make something,start
+160,lets make something,start
+161,lets make something,start
+162,lets make something,start
+163,lets make something,start
+164,lets make something,start
+165,lets make something,start
+166,lets make something,start
+167,lets make something,start
+168,lets make something,start
+169,lets make something,start
+170,lets make something,start
+171,lets make something,start
+172,lets make something,start
+173,lets make something,start
+174,lets make something,start
+175,lets make something,start
+176,lets make something,start
+177,lets make something,start
+178,lets make something,start
+179,lets make something,start
+180,lets make something,start
+181,lets make something,start
+182,lets make a recipe,start
+183,lets make a recipe,start
+184,lets make a recipe,start
+185,lets make a recipe,start
+186,lets make a recipe,start
+187,lets make a recipe,start
+188,lets make a recipe,start
+189,lets make a recipe,start
+190,lets make a recipe,start
+191,lets make a recipe,start
+192,lets make a recipe,start
+193,lets make a recipe,start
+194,lets make a recipe,start
+195,lets make a recipe,start
+196,lets make a recipe,start
+197,lets make a recipe,start
+198,lets make a recipe,start
+199,lets make a recipe,start
+200,What are the ingredients,show
+201,What are the ingredients,show
+202,What are the ingredients,show
+203,What are the ingredients,show
+204,What are the ingredients,show
+205,What are the ingredients,show
+206,What are the ingredients,show
+207,What are the ingredients,show
+208,What are the ingredients,show
+209,What are the ingredients,show
+210,What are the ingredients,show
+211,What are the ingredients,show
+212,What are the ingredients,show
+213,What are the ingredients,show
+214,What are the ingredients,show
+215,What are the ingredients,show
+216,What are the ingredients,show
+217,What are the ingredients,show
+218,What are the ingredients,show
+219,What are the ingredients,show
+220,What are the ingredients,show
+221,What are the ingredients,show
+222,What are the ingredients,show
+223,What are the ingredients,show
+224,What are the ingredients,show
+225,What are the ingredients,show
+226,show me the ingredients,show
+227,show me the ingredients,show
+228,show me the ingredients,show
+229,show me the ingredients,show
+230,show me the ingredients,show
+231,show me the ingredients,show
+232,show me the ingredients,show
+233,show me the ingredients,show
+234,show me the ingredients,show
+235,show me the ingredients,show
+236,show me the ingredients,show
+237,show me the ingredients,show
+238,show me the ingredients,show
+239,show me the ingredients,show
+240,show me the ingredients,show
+241,show me the ingredients,show
+242,show me the ingredients,show
+243,show me the ingredients,show
+244,show me the ingredients,show
+245,show me the ingredients,show
+246,show me the ingredients,show
+247,show me the ingredients,show
+248,show me the ingredients,show
+249,show me the ingredients,show
+250,show me the ingredients,show
+251,show me the ingredients,show
+252,show ingredients,show
+253,show ingredients,show
+254,show ingredients,show
+255,show ingredients,show
+256,show ingredients,show
+257,show ingredients,show
+258,show ingredients,show
+259,show ingredients,show
+260,show ingredients,show
+261,show ingredients,show
+262,show ingredients,show
+263,show ingredients,show
+264,show ingredients,show
+265,show ingredients,show
+266,show ingredients,show
+267,show ingredients,show
+268,show ingredients,show
+269,show ingredients,show
+270,show ingredients,show
+271,show ingredients,show
+272,show ingredients,show
+273,show ingredients,show
+274,show ingredients,show
+275,show ingredients,show
+276,show ingredients,show
+277,show ingredients,show
+278,whats this recipe called,show
+279,whats this recipe called,show
+280,whats this recipe called,show
+281,whats this recipe called,show
+282,whats this recipe called,show
+283,whats this recipe called,show
+284,whats this recipe called,show
+285,whats this recipe called,show
+286,whats this recipe called,show
+287,whats this recipe called,show
+288,whats this recipe called,show
+289,whats this recipe called,show
+290,whats this recipe called,show
+291,whats this recipe called,show
+292,whats this recipe called,show
+293,whats this recipe called,show
+294,whats this recipe called,show
+295,whats this recipe called,show
+296,whats this recipe called,show
+297,whats this recipe called,show
+298,whats this recipe called,show
+299,whats this recipe called,show
+300,whats this recipe called,show
+301,whats this recipe called,show
+302,whats this recipe called,show
+303,whats this recipe called,show
+304,show me the recipe name,show
+305,show me the recipe name,show
+306,show me the recipe name,show
+307,show me the recipe name,show
+308,show me the recipe name,show
+309,show me the recipe name,show
+310,show me the recipe name,show
+311,show me the recipe name,show
+312,show me the recipe name,show
+313,show me the recipe name,show
+314,show me the recipe name,show
+315,show me the recipe name,show
+316,show me the recipe name,show
+317,show me the recipe name,show
+318,show me the recipe name,show
+319,show me the recipe name,show
+320,show me the recipe name,show
+321,show me the recipe name,show
+322,show me the recipe name,show
+323,show me the recipe name,show
+324,show me the recipe name,show
+325,show me the recipe name,show
+326,show me the recipe name,show
+327,show me the recipe name,show
+328,show me the recipe name,show
+329,show me the recipe name,show
+330,show recipe name,show
+331,show recipe name,show
+332,show recipe name,show
+333,show recipe name,show
+334,show recipe name,show
+335,show recipe name,show
+336,show recipe name,show
+337,show recipe name,show
+338,show recipe name,show
+339,show recipe name,show
+340,show recipe name,show
+341,show recipe name,show
+342,show recipe name,show
+343,show recipe name,show
+344,show recipe name,show
+345,show recipe name,show
+346,show recipe name,show
+347,show recipe name,show
+348,show recipe name,show
+349,show recipe name,show
+350,show recipe name,show
+351,show recipe name,show
+352,show recipe name,show
+353,show recipe name,show
+354,show recipe name,show
+355,show recipe name,show
+356,show recipe ingredients,show
+357,show recipe ingredients,show
+358,show recipe ingredients,show
+359,show recipe ingredients,show
+360,show recipe ingredients,show
+361,show recipe ingredients,show
+362,show recipe ingredients,show
+363,show recipe ingredients,show
+364,show recipe ingredients,show
+365,show recipe ingredients,show
+366,show recipe ingredients,show
+367,show recipe ingredients,show
+368,show recipe ingredients,show
+369,show recipe ingredients,show
+370,show recipe ingredients,show
+371,show recipe ingredients,show
+372,show recipe ingredients,show
+373,show recipe ingredients,show
+374,show recipe ingredients,show
+375,show recipe ingredients,show
+376,show recipe ingredients,show
+377,show recipe ingredients,show
+378,show recipe ingredients,show
+379,show recipe ingredients,show
+380,show recipe ingredients,show
+381,show recipe ingredients,show
+382,show recipe time,show
+383,show recipe time,show
+384,show recipe time,show
+385,show recipe time,show
+386,show recipe time,show
+387,show recipe time,show
+388,show recipe time,show
+389,show recipe time,show
+390,show recipe time,show
+391,show recipe time,show
+392,show recipe time,show
+393,show recipe time,show
+394,show recipe time,show
+395,show recipe time,show
+396,show recipe time,show
+397,show recipe time,show
+398,show recipe time,show
+399,show recipe time,show
+400,What is the next step,navigate
+401,What is the next step,navigate
+402,What is the next step,navigate
+403,What is the next step,navigate
+404,What is the next step,navigate
+405,What is the next step,navigate
+406,What is the next step,navigate
+407,What is the next step,navigate
+408,Show me the next step,navigate
+409,Show me the next step,navigate
+410,Show me the next step,navigate
+411,Show me the next step,navigate
+412,Show me the next step,navigate
+413,Show me the next step,navigate
+414,Show me the next step,navigate
+415,Show me the next step,navigate
+416,whats next,navigate
+417,whats next,navigate
+418,whats next,navigate
+419,whats next,navigate
+420,whats next,navigate
+421,whats next,navigate
+422,whats next,navigate
+423,whats next,navigate
+424,Show me the last step,navigate
+425,Show me the last step,navigate
+426,Show me the last step,navigate
+427,Show me the last step,navigate
+428,Show me the last step,navigate
+429,Show me the last step,navigate
+430,Show me the last step,navigate
+431,Show me the last step,navigate
+432,Show me the first step,navigate
+433,Show me the first step,navigate
+434,Show me the first step,navigate
+435,Show me the first step,navigate
+436,Show me the first step,navigate
+437,Show me the first step,navigate
+438,Show me the first step,navigate
+439,Show me the first step,navigate
+440,Show me the second step,navigate
+441,Show me the second step,navigate
+442,Show me the second step,navigate
+443,Show me the second step,navigate
+444,Show me the second step,navigate
+445,Show me the second step,navigate
+446,Show me the second step,navigate
+447,Show me the second step,navigate
+448,What is the fourth step,navigate
+449,What is the fourth step,navigate
+450,What is the fourth step,navigate
+451,What is the fourth step,navigate
+452,What is the fourth step,navigate
+453,What is the fourth step,navigate
+454,What is the fourth step,navigate
+455,What is the fourth step,navigate
+456,What was the last step,navigate
+457,What was the last step,navigate
+458,What was the last step,navigate
+459,What was the last step,navigate
+460,What was the last step,navigate
+461,What was the last step,navigate
+462,What was the last step,navigate
+463,What was the last step,navigate
+464,Repeat the last step,navigate
+465,Repeat the last step,navigate
+466,Repeat the last step,navigate
+467,Repeat the last step,navigate
+468,Repeat the last step,navigate
+469,Repeat the last step,navigate
+470,Repeat the last step,navigate
+471,Repeat the last step,navigate
+472,Go backward,navigate
+473,Go backward,navigate
+474,Go backward,navigate
+475,Go backward,navigate
+476,Go backward,navigate
+477,Go backward,navigate
+478,Go backward,navigate
+479,Go backward,navigate
+480,Go forward,navigate
+481,Go forward,navigate
+482,Go forward,navigate
+483,Go forward,navigate
+484,Go forward,navigate
+485,Go forward,navigate
+486,Go forward,navigate
+487,Go forward,navigate
+488,What was before that,navigate
+489,What was before that,navigate
+490,What was before that,navigate
+491,What was before that,navigate
+492,What was before that,navigate
+493,What was before that,navigate
+494,What was before that,navigate
+495,What was before that,navigate
+496,What was the step before that,navigate
+497,What was the step before that,navigate
+498,What was the step before that,navigate
+499,What was the step before that,navigate
+500,What was the step before that,navigate
+501,What was the step before that,navigate
+502,What was the step before that,navigate
+503,What was the step before that,navigate
+504,What is after that,navigate
+505,What is after that,navigate
+506,What is after that,navigate
+507,What is after that,navigate
+508,What is after that,navigate
+509,What is after that,navigate
+510,What is after that,navigate
+511,What is after that,navigate
+512,What is the step after that,navigate
+513,What is the step after that,navigate
+514,What is the step after that,navigate
+515,What is the step after that,navigate
+516,What is the step after that,navigate
+517,What is the step after that,navigate
+518,What is the step after that,navigate
+519,What is the step after that,navigate
+520,Take me back,navigate
+521,Take me back,navigate
+522,Take me back,navigate
+523,Take me back,navigate
+524,Take me back,navigate
+525,Take me back,navigate
+526,Take me back,navigate
+527,Take me back,navigate
+528,Go back one step,navigate
+529,Go back one step,navigate
+530,Go back one step,navigate
+531,Go back one step,navigate
+532,Go back one step,navigate
+533,Go back one step,navigate
+534,Go back one step,navigate
+535,Go back one step,navigate
+536,Go forward one stepGo to the next step,navigate
+537,Go forward one stepGo to the next step,navigate
+538,Go forward one stepGo to the next step,navigate
+539,Go forward one stepGo to the next step,navigate
+540,Go forward one stepGo to the next step,navigate
+541,Go forward one stepGo to the next step,navigate
+542,Go forward one stepGo to the next step,navigate
+543,Go forward one stepGo to the next step,navigate
+544,Tell me the next step,navigate
+545,Tell me the next step,navigate
+546,Tell me the next step,navigate
+547,Tell me the next step,navigate
+548,Tell me the next step,navigate
+549,Tell me the next step,navigate
+550,Tell me the next step,navigate
+551,Tell me the next step,navigate
+552,Tell me the previous step,navigate
+553,Tell me the previous step,navigate
+554,Tell me the previous step,navigate
+555,Tell me the previous step,navigate
+556,Tell me the previous step,navigate
+557,Tell me the previous step,navigate
+558,Tell me the previous step,navigate
+559,Tell me the previous step,navigate
+560,Next step,navigate
+561,Next step,navigate
+562,Next step,navigate
+563,Next step,navigate
+564,Next step,navigate
+565,Next step,navigate
+566,Next step,navigate
+567,Next step,navigate
+568,Previous step,navigate
+569,Previous step,navigate
+570,Previous step,navigate
+571,Previous step,navigate
+572,Previous step,navigate
+573,Previous step,navigate
+574,Previous step,navigate
+575,Previous step,navigate
+576,Last step,navigate
+577,Last step,navigate
+578,Last step,navigate
+579,Last step,navigate
+580,Last step,navigate
+581,Last step,navigate
+582,Last step,navigate
+583,Last step,navigate
+584,Next,navigate
+585,Next,navigate
+586,Next,navigate
+587,Next,navigate
+588,Next,navigate
+589,Next,navigate
+590,Next,navigate
+591,Next,navigate
+592,I'm done with this step,navigate
+593,I'm done with this step,navigate
+594,I'm done with this step,navigate
+595,I'm done with this step,navigate
+596,I'm done with this step,navigate
+597,I'm done with this step,navigate
+598,I'm done with this step,navigate
+599,I'm done with this step,navigate
+600,How do I bake something,search
+601,How do I fry something,search
+602,How do I stir something,search
+603,How do I roast something,search
+604,How do I sautee something,search
+605,How do I microwave something,search
+606,How do I broil something,search
+607,How do I poach something,search
+608,How do I boil something,search
+609,How do I reduce something,search
+610,How do I add something,search
+611,How do I combine something,search
+612,How do I grill something,search
+613,How do I steam something,search
+614,How do I simmer something,search
+615,How do I blanch something,search
+616,How do I braise something,search
+617,How do I mix something,search
+618,How do I sear something,search
+619,How do I blend something,search
+620,How do I turn something,search
+621,How do I brush something,search
+622,How do I place something,search
+623,How do I preheat something,search
+624,How do I smoke something,search
+625,How do I break something,search
+626,How do I melt something,search
+627,How do I spread something,search
+628,How do I layer something,search
+629,How do I roll out something,search
+630,How do I peel something,search
+631,How do I cut something,search
+632,How do I chop something,search
+633,How do I pinch something,search
+634,How do I pour something,search
+635,How do I weigh something,search
+636,How do I measure something,search
+637,How do I knead something,search
+638,How do I quarter something,search
+639,How do I cube something,search
+640,How do I slice something,search
+641,How do I bake something with a baking pan,search
+642,How do I fry something with a baking pan,search
+643,How do I stir something with a baking pan,search
+644,How do I roast something with a baking pan,search
+645,How do I sautee something with a baking pan,search
+646,How do I microwave something with a baking pan,search
+647,How do I broil something with a baking pan,search
+648,How do I poach something with a baking pan,search
+649,How do I boil something with a baking pan,search
+650,How do I reduce something with a baking pan,search
+651,How do I add something with a baking pan,search
+652,How do I combine something with a baking pan,search
+653,How do I grill something with a baking pan,search
+654,How do I steam something with a baking pan,search
+655,How do I simmer something with a baking pan,search
+656,How do I blanch something with a baking pan,search
+657,How do I braise something with a baking pan,search
+658,How do I mix something with a baking pan,search
+659,How do I sear something with a baking pan,search
+660,How do I blend something with a baking pan,search
+661,How do I turn something with a baking pan,search
+662,How do I brush something with a baking pan,search
+663,How do I place something with a baking pan,search
+664,How do I preheat something with a baking pan,search
+665,How do I smoke something with a baking pan,search
+666,How do I break something with a baking pan,search
+667,How do I melt something with a baking pan,search
+668,How do I spread something with a baking pan,search
+669,How do I layer something with a baking pan,search
+670,How do I roll out something with a baking pan,search
+671,How do I peel something with a baking pan,search
+672,How do I cut something with a baking pan,search
+673,How do I chop something with a baking pan,search
+674,How do I pinch something with a baking pan,search
+675,How do I pour something with a baking pan,search
+676,How do I weigh something with a baking pan,search
+677,How do I measure something with a baking pan,search
+678,How do I knead something with a baking pan,search
+679,How do I quarter something with a baking pan,search
+680,How do I cube something with a baking pan,search
+681,How do I slice something with a baking pan,search
+682,What is water,search
+683,What is olive oil,search
+684,What is butter,search
+685,What is vegetable oil,search
+686,What is margarine,search
+687,What is beef,search
+688,What is lamb,search
+689,What is veal,search
+690,What is pork,search
+691,What is kangaroo,search
+692,What is chicken,search
+693,What is turkey,search
+694,What is duck,search
+695,What is emu,search
+696,What is goose,search
+697,What is fish,search
+698,What is prawn,search
+699,What is crab,search
+700,What is lobster,search
+701,What is mussels,search
+702,What is oyster,search
+703,What is scallop,search
+704,What is clams,search
+705,What is shrimp,search
+706,What is milk,search
+707,What is yogurt,search
+708,What is yoghurt,search
+709,What is cheese,search
+710,What is cottage cheese,search
+711,What is almond,search
+712,What is pine nut,search
+713,What is walnut,search
+714,What is macadamia,search
+715,What is hazelnut,search
+716,What is cashew,search
+717,What is pumpkin seed,search
+718,What is sesame seed,search
+719,What is sunflower seed,search
+720,What is bean,search
+721,What is lentil,search
+722,What is chickpea,search
+723,What is baking pan,search
+724,What is baking sheet,search
+725,What is barbecue grill,search
+726,What is baster,search
+727,What is basting brush,search
+728,What is blender,search
+729,What is bread basket,search
+730,What is bread knife,search
+731,What is Bundt pan,search
+732,What is butcher block,search
+733,What is cake pan,search
+734,What is can opener,search
+735,What is carafe,search
+736,What is casserole pan,search
+737,What is charcoal grill,search
+738,What is cheese cloth,search
+739,What is coffee maker,search
+740,What is coffee pot,search
+741,What is colander,search
+742,What is convection oven,search
+743,What is cookbook,search
+744,What is cookie cutter,search
+745,What is cookie press,search
+746,What is cookie sheet,search
+747,What is cooling rack,search
+748,What is corer,search
+749,What is crepe pan,search
+750,What is crock,search
+751,What is crock pot,search
+752,What is cupcake pan,search
+753,What is custard cup,search
+754,What is cutlery,search
+755,What is cutting board,search
+756,What is Dutch oven,search
+757,What is egg beater,search
+758,What is egg poacher,search
+759,What is egg timer,search
+760,What is espresso machine,search
+761,What is fondue pot,search
+762,What is food processor,search
+763,What is fork,search
+764,How can I bake water,search
+765,How can I fry water,search
+766,How can I stir water,search
+767,How can I roast water,search
+768,How can I sautee water,search
+769,How can I microwave water,search
+770,How can I broil water,search
+771,How can I poach water,search
+772,How can I boil water,search
+773,How can I reduce water,search
+774,How can I add water,search
+775,How can I combine water,search
+776,How can I grill water,search
+777,How can I steam water,search
+778,How can I simmer water,search
+779,How can I blanch water,search
+780,How can I braise water,search
+781,How can I mix water,search
+782,How can I sear water,search
+783,How can I blend water,search
+784,How can I turn water,search
+785,How can I brush water,search
+786,How can I place water,search
+787,How can I preheat water,search
+788,How can I smoke water,search
+789,How can I break water,search
+790,How can I melt water,search
+791,How can I spread water,search
+792,How can I layer water,search
+793,How can I roll out water,search
+794,How can I peel water,search
+795,How can I cut water,search
+796,How can I chop water,search
+797,How can I pinch water,search
+798,How can I pour water,search
+799,How can I weigh water,search
+800,how long does water cook,get_param
+801,how long does olive oil cook,get_param
+802,how long does butter cook,get_param
+803,how long does vegetable oil cook,get_param
+804,how long does margarine cook,get_param
+805,how long does beef cook,get_param
+806,how long does lamb cook,get_param
+807,how long does veal cook,get_param
+808,how long does pork cook,get_param
+809,how long does kangaroo cook,get_param
+810,how long does chicken cook,get_param
+811,how long does turkey cook,get_param
+812,how long does duck cook,get_param
+813,how long does emu cook,get_param
+814,how long does goose cook,get_param
+815,how long does fish cook,get_param
+816,how long does prawn cook,get_param
+817,how long does crab cook,get_param
+818,how long does lobster cook,get_param
+819,how long does mussels cook,get_param
+820,how long does oyster cook,get_param
+821,how long do I put it in for,get_param
+822,how long do I put it in for,get_param
+823,how long do I put it in for,get_param
+824,how long do I put it in for,get_param
+825,how long do I put it in for,get_param
+826,how long do I put it in for,get_param
+827,how long do I put it in for,get_param
+828,how long do I put it in for,get_param
+829,how long do I put it in for,get_param
+830,how long do I put it in for,get_param
+831,how long do I put it in for,get_param
+832,how long do I put it in for,get_param
+833,how long do I put it in for,get_param
+834,how long do I put it in for,get_param
+835,how long do I put it in for,get_param
+836,how long do I put it in for,get_param
+837,how long do I put it in for,get_param
+838,how long do I put it in for,get_param
+839,how long do I put it in for,get_param
+840,how long do I put it in for,get_param
+841,how long do I put it in for,get_param
+842,for how long,get_param
+843,for how long,get_param
+844,for how long,get_param
+845,for how long,get_param
+846,for how long,get_param
+847,for how long,get_param
+848,for how long,get_param
+849,for how long,get_param
+850,for how long,get_param
+851,for how long,get_param
+852,for how long,get_param
+853,for how long,get_param
+854,for how long,get_param
+855,for how long,get_param
+856,for how long,get_param
+857,for how long,get_param
+858,for how long,get_param
+859,for how long,get_param
+860,for how long,get_param
+861,for how long,get_param
+862,for how long,get_param
+863,how long does that take,get_param
+864,how long does that take,get_param
+865,how long does that take,get_param
+866,how long does that take,get_param
+867,how long does that take,get_param
+868,how long does that take,get_param
+869,how long does that take,get_param
+870,how long does that take,get_param
+871,how long does that take,get_param
+872,how long does that take,get_param
+873,how long does that take,get_param
+874,how long does that take,get_param
+875,how long does that take,get_param
+876,how long does that take,get_param
+877,how long does that take,get_param
+878,how long does that take,get_param
+879,how long does that take,get_param
+880,how long does that take,get_param
+881,how long does that take,get_param
+882,how long does that take,get_param
+883,how long does that take,get_param
+884,what is the temperature,get_param
+885,what is the temperature,get_param
+886,what is the temperature,get_param
+887,what is the temperature,get_param
+888,what is the temperature,get_param
+889,what is the temperature,get_param
+890,what is the temperature,get_param
+891,what is the temperature,get_param
+892,what is the temperature,get_param
+893,what is the temperature,get_param
+894,what is the temperature,get_param
+895,what is the temperature,get_param
+896,what is the temperature,get_param
+897,what is the temperature,get_param
+898,what is the temperature,get_param
+899,what is the temperature,get_param
+900,what is the temperature,get_param
+901,what is the temperature,get_param
+902,what is the temperature,get_param
+903,what is the temperature,get_param
+904,what is the temperature,get_param
+905,what temperature,get_param
+906,what temperature,get_param
+907,what temperature,get_param
+908,what temperature,get_param
+909,what temperature,get_param
+910,what temperature,get_param
+911,what temperature,get_param
+912,what temperature,get_param
+913,what temperature,get_param
+914,what temperature,get_param
+915,what temperature,get_param
+916,what temperature,get_param
+917,what temperature,get_param
+918,what temperature,get_param
+919,what temperature,get_param
+920,what temperature,get_param
+921,what temperature,get_param
+922,what temperature,get_param
+923,what temperature,get_param
+924,what temperature,get_param
+925,what temperature,get_param
+926,what temperature does water cook,get_param
+927,what temperature does olive oil cook,get_param
+928,what temperature does butter cook,get_param
+929,what temperature does vegetable oil cook,get_param
+930,what temperature does margarine cook,get_param
+931,what temperature does beef cook,get_param
+932,what temperature does lamb cook,get_param
+933,what temperature does veal cook,get_param
+934,what temperature does pork cook,get_param
+935,what temperature does kangaroo cook,get_param
+936,what temperature does chicken cook,get_param
+937,what temperature does turkey cook,get_param
+938,what temperature does duck cook,get_param
+939,what temperature does emu cook,get_param
+940,what temperature does goose cook,get_param
+941,what temperature does fish cook,get_param
+942,what temperature does prawn cook,get_param
+943,what temperature does crab cook,get_param
+944,what temperature does lobster cook,get_param
+945,what temperature does mussels cook,get_param
+946,what temperature does oyster cook,get_param
+947,When is it done,get_param
+948,When is it done,get_param
+949,When is it done,get_param
+950,When is it done,get_param
+951,When is it done,get_param
+952,When is it done,get_param
+953,When is it done,get_param
+954,When is it done,get_param
+955,When is it done,get_param
+956,When is it done,get_param
+957,When is it done,get_param
+958,When is it done,get_param
+959,When is it done,get_param
+960,When is it done,get_param
+961,When is it done,get_param
+962,When is it done,get_param
+963,When is it done,get_param
+964,When is it done,get_param
+965,When is it done,get_param
+966,When is it done,get_param
+967,When is it done,get_param
+968,How much water do I need,get_param
+969,How much olive oil do I need,get_param
+970,How much butter do I need,get_param
+971,How much vegetable oil do I need,get_param
+972,How much margarine do I need,get_param
+973,How much beef do I need,get_param
+974,How much lamb do I need,get_param
+975,How much veal do I need,get_param
+976,How much pork do I need,get_param
+977,How much kangaroo do I need,get_param
+978,How much chicken do I need,get_param
+979,How much turkey do I need,get_param
+980,How much duck do I need,get_param
+981,How much emu do I need,get_param
+982,How much goose do I need,get_param
+983,How much fish do I need,get_param
+984,How much prawn do I need,get_param
+985,How much crab do I need,get_param
+986,How much lobster do I need,get_param
+987,How much mussels do I need,get_param
+988,How much oyster do I need,get_param
+989,How much water,get_param
+990,How much olive oil,get_param
+991,How much butter,get_param
+992,How much vegetable oil,get_param
+993,How much margarine,get_param
+994,How much beef,get_param
+995,How much lamb,get_param
+996,How much veal,get_param
+997,How much pork,get_param
+998,How much kangaroo,get_param
+999,How much chicken,get_param
+1000,hehexd,substitute
+1001,hehexd,substitute
+1002,hehexd,substitute
+1003,hehexd,substitute
+1004,hehexd,substitute
+1005,hehexd,substitute
+1006,hehexd,substitute
+1007,hehexd,substitute
+1008,hehexd,substitute
+1009,hehexd,substitute
+1010,hehexd,substitute
+1011,hehexd,substitute
+1012,hehexd,substitute
+1013,hehexd,substitute
+1014,hehexd,substitute
+1015,hehexd,substitute
+1016,hehexd,substitute
+1017,hehexd,substitute
+1018,hehexd,substitute
+1019,hehexd,substitute
+1020,hehexd,substitute
+1021,hehexd,substitute
+1022,hehexd,substitute
+1023,hehexd,substitute
+1024,hehexd,substitute
+1025,hehexd,substitute
+1026,hehexd,substitute
+1027,hehexd,substitute
+1028,hehexd,substitute
+1029,hehexd,substitute
+1030,hehexd,substitute
+1031,hehexd,substitute
+1032,hehexd,substitute
+1033,hehexd,substitute
+1034,hehexd,substitute
+1035,hehexd,substitute
+1036,hehexd,substitute
+1037,hehexd,substitute
+1038,hehexd,substitute
+1039,hehexd,substitute
+1040,hehexd,substitute
+1041,hehexd,substitute
+1042,hehexd,substitute
+1043,hehexd,substitute
+1044,hehexd,substitute
+1045,hehexd,substitute
+1046,hehexd,substitute
+1047,hehexd,substitute
+1048,hehexd,substitute
+1049,hehexd,substitute
+1050,hehexd,substitute
+1051,hehexd,substitute
+1052,hehexd,substitute
+1053,hehexd,substitute
+1054,hehexd,substitute
+1055,hehexd,substitute
+1056,hehexd,substitute
+1057,hehexd,substitute
+1058,hehexd,substitute
+1059,hehexd,substitute
+1060,hehexd,substitute
+1061,hehexd,substitute
+1062,hehexd,substitute
+1063,hehexd,substitute
+1064,hehexd,substitute
+1065,hehexd,substitute
+1066,hehexd,substitute
+1067,hehexd,substitute
+1068,hehexd,substitute
+1069,hehexd,substitute
+1070,hehexd,substitute
+1071,hehexd,substitute
+1072,hehexd,substitute
+1073,hehexd,substitute
+1074,hehexd,substitute
+1075,hehexd,substitute
+1076,hehexd,substitute
+1077,hehexd,substitute
+1078,hehexd,substitute
+1079,hehexd,substitute
+1080,hehexd,substitute
+1081,hehexd,substitute
+1082,hehexd,substitute
+1083,hehexd,substitute
+1084,hehexd,substitute
+1085,hehexd,substitute
+1086,hehexd,substitute
+1087,hehexd,substitute
+1088,hehexd,substitute
+1089,hehexd,substitute
+1090,hehexd,substitute
+1091,hehexd,substitute
+1092,hehexd,substitute
+1093,hehexd,substitute
+1094,hehexd,substitute
+1095,hehexd,substitute
+1096,hehexd,substitute
+1097,hehexd,substitute
+1098,hehexd,substitute
+1099,hehexd,substitute
+1100,hehexd,substitute
+1101,hehexd,substitute
+1102,hehexd,substitute
+1103,hehexd,substitute
+1104,hehexd,substitute
+1105,hehexd,substitute
+1106,hehexd,substitute
+1107,hehexd,substitute
+1108,hehexd,substitute
+1109,hehexd,substitute
+1110,hehexd,substitute
+1111,hehexd,substitute
+1112,hehexd,substitute
+1113,hehexd,substitute
+1114,hehexd,substitute
+1115,hehexd,substitute
+1116,hehexd,substitute
+1117,hehexd,substitute
+1118,hehexd,substitute
+1119,hehexd,substitute
+1120,hehexd,substitute
+1121,hehexd,substitute
+1122,hehexd,substitute
+1123,hehexd,substitute
+1124,hehexd,substitute
+1125,hehexd,substitute
+1126,hehexd,substitute
+1127,hehexd,substitute
+1128,hehexd,substitute
+1129,hehexd,substitute
+1130,hehexd,substitute
+1131,hehexd,substitute
+1132,hehexd,substitute
+1133,hehexd,substitute
+1134,hehexd,substitute
+1135,hehexd,substitute
+1136,hehexd,substitute
+1137,hehexd,substitute
+1138,hehexd,substitute
+1139,hehexd,substitute
+1140,hehexd,substitute
+1141,hehexd,substitute
+1142,hehexd,substitute
+1143,hehexd,substitute
+1144,hehexd,substitute
+1145,hehexd,substitute
+1146,hehexd,substitute
+1147,hehexd,substitute
+1148,hehexd,substitute
+1149,hehexd,substitute
+1150,hehexd,substitute
+1151,hehexd,substitute
+1152,hehexd,substitute
+1153,hehexd,substitute
+1154,hehexd,substitute
+1155,hehexd,substitute
+1156,hehexd,substitute
+1157,hehexd,substitute
+1158,hehexd,substitute
+1159,hehexd,substitute
+1160,hehexd,substitute
+1161,hehexd,substitute
+1162,hehexd,substitute
+1163,hehexd,substitute
+1164,hehexd,substitute
+1165,hehexd,substitute
+1166,hehexd,substitute
+1167,hehexd,substitute
+1168,hehexd,substitute
+1169,hehexd,substitute
+1170,hehexd,substitute
+1171,hehexd,substitute
+1172,hehexd,substitute
+1173,hehexd,substitute
+1174,hehexd,substitute
+1175,hehexd,substitute
+1176,hehexd,substitute
+1177,hehexd,substitute
+1178,hehexd,substitute
+1179,hehexd,substitute
+1180,hehexd,substitute
+1181,hehexd,substitute
+1182,hehexd,substitute
+1183,hehexd,substitute
+1184,hehexd,substitute
+1185,hehexd,substitute
+1186,hehexd,substitute
+1187,hehexd,substitute
+1188,hehexd,substitute
+1189,hehexd,substitute
+1190,hehexd,substitute
+1191,hehexd,substitute
+1192,hehexd,substitute
+1193,hehexd,substitute
+1194,hehexd,substitute
+1195,hehexd,substitute
+1196,hehexd,substitute
+1197,hehexd,substitute
+1198,hehexd,substitute
+1199,hehexd,substitute
+1200,water water,unknown
+1201,olive oil water,unknown
+1202,butter water,unknown
+1203,vegetable oil water,unknown
+1204,margarine water,unknown
+1205,beef water,unknown
+1206,lamb water,unknown
+1207,veal water,unknown
+1208,pork water,unknown
+1209,kangaroo water,unknown
+1210,chicken water,unknown
+1211,turkey water,unknown
+1212,duck water,unknown
+1213,emu water,unknown
+1214,goose water,unknown
+1215,fish water,unknown
+1216,prawn water,unknown
+1217,crab water,unknown
+1218,lobster water,unknown
+1219,mussels water,unknown
+1220,oyster water,unknown
+1221,scallop water,unknown
+1222,clams water,unknown
+1223,shrimp water,unknown
+1224,milk water,unknown
+1225,yogurt water,unknown
+1226,yoghurt water,unknown
+1227,cheese water,unknown
+1228,cottage cheese water,unknown
+1229,almond water,unknown
+1230,pine nut water,unknown
+1231,walnut water,unknown
+1232,macadamia water,unknown
+1233,hazelnut water,unknown
+1234,cashew water,unknown
+1235,pumpkin seed water,unknown
+1236,sesame seed water,unknown
+1237,sunflower seed water,unknown
+1238,bean water,unknown
+1239,lentil water,unknown
+1240,chickpea water,unknown
+1241,split pea water,unknown
+1242,tofu water,unknown
+1243,bacon water,unknown
+1244,chia seed water,unknown
+1245,egg water,unknown
+1246,egg whites water,unknown
+1247,cod water,unknown
+1248,halibut water,unknown
+1249,salmon water,unknown
+1250,sardine water,unknown
+1251,     ,unknown
+1252,     ,unknown
+1253,     ,unknown
+1254,     ,unknown
+1255,     ,unknown
+1256,     ,unknown
+1257,     ,unknown
+1258,     ,unknown
+1259,     ,unknown
+1260,     ,unknown
+1261,     ,unknown
+1262,     ,unknown
+1263,     ,unknown
+1264,     ,unknown
+1265,     ,unknown
+1266,     ,unknown
+1267,     ,unknown
+1268,     ,unknown
+1269,     ,unknown
+1270,     ,unknown
+1271,     ,unknown
+1272,     ,unknown
+1273,     ,unknown
+1274,     ,unknown
+1275,     ,unknown
+1276,     ,unknown
+1277,     ,unknown
+1278,     ,unknown
+1279,     ,unknown
+1280,     ,unknown
+1281,     ,unknown
+1282,     ,unknown
+1283,     ,unknown
+1284,     ,unknown
+1285,     ,unknown
+1286,     ,unknown
+1287,     ,unknown
+1288,     ,unknown
+1289,     ,unknown
+1290,     ,unknown
+1291,     ,unknown
+1292,     ,unknown
+1293,     ,unknown
+1294,     ,unknown
+1295,     ,unknown
+1296,     ,unknown
+1297,     ,unknown
+1298,     ,unknown
+1299,     ,unknown
+1300,     ,unknown
+1301,     ,unknown
+1302,baking pan baking pan,unknown
+1303,baking sheet baking pan,unknown
+1304,barbecue grill baking pan,unknown
+1305,baster baking pan,unknown
+1306,basting brush baking pan,unknown
+1307,blender baking pan,unknown
+1308,bread basket baking pan,unknown
+1309,bread knife baking pan,unknown
+1310,Bundt pan baking pan,unknown
+1311,butcher block baking pan,unknown
+1312,cake pan baking pan,unknown
+1313,can opener baking pan,unknown
+1314,carafe baking pan,unknown
+1315,casserole pan baking pan,unknown
+1316,charcoal grill baking pan,unknown
+1317,cheese cloth baking pan,unknown
+1318,coffee maker baking pan,unknown
+1319,coffee pot baking pan,unknown
+1320,colander baking pan,unknown
+1321,convection oven baking pan,unknown
+1322,cookbook baking pan,unknown
+1323,cookie cutter baking pan,unknown
+1324,cookie press baking pan,unknown
+1325,cookie sheet baking pan,unknown
+1326,cooling rack baking pan,unknown
+1327,corer baking pan,unknown
+1328,crepe pan baking pan,unknown
+1329,crock baking pan,unknown
+1330,crock pot baking pan,unknown
+1331,cupcake pan baking pan,unknown
+1332,custard cup baking pan,unknown
+1333,cutlery baking pan,unknown
+1334,cutting board baking pan,unknown
+1335,Dutch oven baking pan,unknown
+1336,egg beater baking pan,unknown
+1337,egg poacher baking pan,unknown
+1338,egg timer baking pan,unknown
+1339,espresso machine baking pan,unknown
+1340,fondue pot baking pan,unknown
+1341,food processor baking pan,unknown
+1342,fork baking pan,unknown
+1343,frying pan baking pan,unknown
+1344,garlic press baking pan,unknown
+1345,gelatin mold baking pan,unknown
+1346,grater baking pan,unknown
+1347,griddle baking pan,unknown
+1348,grill pan baking pan,unknown
+1349,grinder baking pan,unknown
+1350,hamburger press baking pan,unknown
+1351,hand mixer baking pan,unknown
+1352,honey pot baking pan,unknown
+1353,bake bake,unknown
+1354,fry bake,unknown
+1355,stir bake,unknown
+1356,roast bake,unknown
+1357,sautee bake,unknown
+1358,microwave bake,unknown
+1359,broil bake,unknown
+1360,poach bake,unknown
+1361,boil bake,unknown
+1362,reduce bake,unknown
+1363,add bake,unknown
+1364,combine bake,unknown
+1365,grill bake,unknown
+1366,steam bake,unknown
+1367,simmer bake,unknown
+1368,blanch bake,unknown
+1369,braise bake,unknown
+1370,mix bake,unknown
+1371,sear bake,unknown
+1372,blend bake,unknown
+1373,turn bake,unknown
+1374,brush bake,unknown
+1375,place bake,unknown
+1376,preheat bake,unknown
+1377,smoke bake,unknown
+1378,break bake,unknown
+1379,melt bake,unknown
+1380,spread bake,unknown
+1381,layer bake,unknown
+1382,roll out bake,unknown
+1383,peel bake,unknown
+1384,cut bake,unknown
+1385,chop bake,unknown
+1386,pinch bake,unknown
+1387,pour bake,unknown
+1388,weigh bake,unknown
+1389,measure bake,unknown
+1390,knead bake,unknown
+1391,quarter bake,unknown
+1392,cube bake,unknown
+1393,slice bake,unknown
+1394,carve bake,unknown
+1395,grate bake,unknown
+1396,squeeze bake,unknown
+1397,sprinkle bake,unknown
+1398,cook bake,unknown
+1399,chill bake,unknown

@@ -175,7 +175,7 @@ def main():
 
 	categories = [Category(name, templates) for name, templates in pairs]
 
-	dataset = create_dataset(categories, 1000)
+	dataset = create_dataset(categories, 200)
 
 	print(dataset)
 
