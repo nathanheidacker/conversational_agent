@@ -214,7 +214,7 @@ class Agent():
 			inquiry = self.current.text
         # Making the inquiry more explicit if it is vague
 		inquiry = ("How do I " + inquiry) if vague_question else inquiry
-		%print(inquiry)	
+		#print(inquiry)	
 		# Getting the google result
 		inqury = inquiry.replace(' ', '+')
 		url = "https://google.com/search?q=" + inquiry
