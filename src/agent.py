@@ -216,6 +216,7 @@ class Agent():
 		inquiry = ("How do I " + inquiry) if vague_question else inquiry
 		%print(inquiry)	
 		# Getting the google result
+		inqury = inquiry.replace(' ', '+')
 		url = "https://google.com/search?q=" + inquiry
 		#print(url)
 		request_result = requests.get(url)
