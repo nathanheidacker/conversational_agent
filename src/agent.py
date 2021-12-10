@@ -25,6 +25,7 @@ class Intent(Enum):
 	SUBSTITUTE = 'substitute'
 	QUIT = 'quit'
 	UNKNOWN = 'unknown'
+	ACKNOWLEDGE = 'acknowledge'
 
 	def __init__(self, value, index=[0]):
 		# Giving the enum an index for category determination
@@ -144,20 +145,20 @@ class Agent():
 		if 'ingredient' in text:
 			self.recipe.output_ingredients()
 
-		elif 'name' in text:
-			to_show = self.recipe.name
-
 		elif 'your name' in text:
 			to_show = self.name
 
-		elif 'steps' in text:
+		elif 'name' in text:
+			to_show = self.recipe.recipe_name
+
+		elif 'step' in text:
 			to_show = f'There are {len(self.recipe.steps)} steps.'
 			self.recipe.output_steps()
 			print("You are on step: ")
 			print(self.current.text)
 
 		elif self.any_in_text(['time', 'long'], text):
-			to_show = self.current
+			to_show = self.recipe.total_time
 
 		if to_show: print(to_show)
 
@@ -251,6 +252,7 @@ class Agent():
 		request_result = requests.get(url)
 		patterns_google = ['BNeawe s3v9rd AP7Wnd', 'LGOjhe']
 		soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
+
 		checker = None
 		answer = ""
 		for pat in patterns_google:
@@ -258,11 +260,13 @@ class Agent():
 			if checker:
 				answer = checker.text	
 				break
-		if not answer:
+
+		if answer:
 			print("Searching google for " + '"' + inqury + '"')
 			print("If answer doesn't make sense, please make the question more specific\n")
 			answer = answer.replace('... ', ' ').replace('  ', ' ')
 			print(answer)
+
 		else:
 			print("Unfortunately your search implemented no results, please try a more specific question")
 
@@ -418,11 +422,32 @@ class Agent():
 	def unknown(self, text):
 		print(f'Sorry, I didn\'t quite understand that. Could you try again?')
 
+	# When the user is acknowledges stuff, they are prompted if they want to move on to the next step: 	
+	def acknowledge(self, text):
+		
+		user_input = input('Okay are you ready for the next step? (y/n): ')
+
+		if user_input.lower() == 'y':
+			self.current_i += 1
+			print_step = True
+			if self.current_i > len(self.recipe.steps) - 1:
+				self.current_i = last_step_i
+				print('This is the last step.')
+				print_step = False
+			self.current = self.recipe.steps[self.current_i]
+			if print_step: print(self.current.text)
+
+		elif user_input.lower() == 'n':
+			print('\nOk. Let me know if you need anything else')
+		else:
+			ask = False
+
+
 	# Call to run the bot
 	def run(self):
 
 		# Intents that require us to be working with a recipe.
-		require_recipe = [self.intents.SHOW, self.intents.NAVIGATE, self.intents.GET_PARAM]
+		require_recipe = [self.intents.SHOW, self.intents.NAVIGATE, self.intents.GET_PARAM, self.intents.ACKNOWLEDGE]
 
 		print(
 			f'\nHello, and welcome to Nathan, Jason, and Ricky\'s cooking assistant. My name is {self.name}, and I will guide you through any recipe from AllRecipes.com! How can I be of service today?')

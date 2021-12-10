@@ -243,6 +243,7 @@ get_param = [
 	'How long does (action) take'
 ]
 
+
 ## Intent: SUBSTITUTE
 substitute = [
 	'What can I substitute for (food)',
@@ -252,6 +253,7 @@ substitute = [
 	'substitute (food)',
 	'How can I substitute (food)'
 ]
+
 
 ## Intent: UKNOWN
 unknown = [

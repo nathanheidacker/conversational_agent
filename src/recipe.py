@@ -240,7 +240,7 @@ class Recipe:
 		#This is just a default time, it will never be seen
 		total_time = "1 hour"
 		for time in find_times:
-			if 'mins' in time.text or 'hour' in time.text or 'day' in time.text:
+			if 'mins' in time.text or 'hour' in time.text or 'day' in time.text or 'hr' in time.text:
 				times.append(time.text)
 		if len(times) == 0:
 			total_time = "No Total Time was reported in this recipe"
