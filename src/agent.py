@@ -249,8 +249,16 @@ class Agent():
 		url = "https://google.com/search?q=" + inquiry
 		# print(url)
 		request_result = requests.get(url)
+		patterns_google = ['BNeawe s3v9rd AP7Wnd', 'LGOjhe']
 		soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
-		if soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text:
+		checker = None
+		answer = ""
+		for pat in patterns_google:
+			checker = soup.find("div", class_=pat)
+			if checker:
+				answer = checker.text	
+				break
+		if not answer:
 			print("Searching google for " + '"' + inqury + '"')
 			print("If answer doesn't make sense, please make the question more specific\n")
 			answer = answer.replace('... ', ' ').replace('  ', ' ')
