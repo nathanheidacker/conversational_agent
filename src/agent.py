@@ -1,6 +1,7 @@
 from recipe import Recipe
 from aenum import Enum, unique, auto, extend_enum
 from transformers import pipeline
+from model import Model
 import wordninja
 import spacy
 import re
@@ -50,9 +51,12 @@ class Agent():
 		# Keeping a history of actions
 		self.history = []
 
+		# Our intent classifier
+		self.model = Model()
+
 	# Returns true if any of the words in words are in the input text
 	@staticmethod
-	def any_in_text(words):
+	def any_in_text(words, text):
 		bools = [(word in text) for word in words]
 		return True if True in bools else False
 
@@ -69,11 +73,12 @@ class Agent():
 		if 'www.allrecipes.com/recipe/' in text:
 			return self.intents.START
 
-		if len(text.split()) > 0 and text.split()[0] in [intent.value for intent in self.intents]:
-			return self.intents(text.split()[0])
-
 		elif re.match(r'^[qQ]([uU]?[iI]?[tT]?)$', text):
 			return self.intents.QUIT
+
+		else:
+			intent_string = self.model(text)
+			return self.intents(intent_string)
 
 		return self.intents.UNKNOWN
 
