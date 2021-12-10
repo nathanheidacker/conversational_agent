@@ -2,6 +2,7 @@ from recipe import Recipe
 from aenum import Enum, unique, auto, extend_enum
 from transformers import pipeline
 from model import Model
+from copy import deepcopy
 import wordninja
 import spacy
 import re
@@ -70,8 +71,16 @@ class Agent():
 	# Given a string of natural language, returns an intent
 	def parse_intent(self, text):
 
+		# BYPASS PARSER
+		if text.startswith('!'):
+			intent = text.split()[0][1:]
+			if intent in [i.value for i in self.intents]:
+				return self.intents(intent)
+			else:
+				return self.intents.UNKNOWN
+
 		# Checking explicitly for URLs
-		if 'www.allrecipes.com/recipe/' in text:
+		elif 'www.allrecipes.com/recipe/' in text:
 			return self.intents.START
 
 		elif re.match(r'^[qQ]([uU]?[iI]?[tT]?)$', text):
@@ -81,7 +90,6 @@ class Agent():
 			intent_string = self.model(text)
 			return self.intents(intent_string)
 
-		return self.intents.UNKNOWN
 
 	# When the user's intent is to start a new recipe
 	def start(self, text=None):
@@ -92,6 +100,9 @@ class Agent():
 
 		# Skip asking the user the first time if we find a url
 		skip_first = True if url else False
+
+
+		previous = self.recipe
 
 		# Allows the user to start on another recipe immediately
 		self.recipe = None
@@ -113,12 +124,16 @@ class Agent():
 				# Successful parse
 				print(f'Okay. Today I\'ll be helping you make {self.recipe.recipe_name}.')
 				self.recipe.output_ingredients()
-				print("You are currently on the first step: ")
+				print("\nYou are currently on the first step: ")
 				print(self.current.text)
 				print('What\'s next?')
 
 			except ValueError:
 				print('Sorry, we couldn\'t parse that url. Please try another, or type q to quit\n')
+
+		if re.match(r'^[qQ]([uU]?[iI]?[tT]?)$', url):
+			self.recipe = previous
+
 
 	# When the user's intent is to display broad information about the recipe
 	def show(self, text):
@@ -150,7 +165,7 @@ class Agent():
 	def navigate(self, text):
 
 		forward = ['next', 'after', 'forward']
-		backward = ['last', 'before', 'previous', 'backward']
+		backward = ['last', 'before', 'previous', 'backward', 'back']
 
 		# determine where/how to move
 		direction = 0
@@ -376,6 +391,16 @@ class Agent():
 					sub_found = True
 					break
 
+		if not sub_found:
+			url = "https://google.com/search?q=" + text
+			request_result = requests.get(url)
+			soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
+			answer = soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text
+			answer = answer.replace('... ', ' ').replace('  ', ' ')
+			print("Searching google for " + '"' + text + '"')
+			print("If answer doesn't make sense, please make the question more specific\n")
+			print(answer)
+
 	# When the user's intent is not understood
 	def unknown(self, text):
 		print(f'Sorry, I didn\'t quite understand that. Could you try again?')
@@ -384,7 +409,7 @@ class Agent():
 	def run(self):
 
 		# Intents that require us to be working with a recipe.
-		require_recipe = [Intent.SHOW, self.intents.NAVIGATE, self.intents.GET_PARAM]
+		require_recipe = [self.intents.SHOW, self.intents.NAVIGATE, self.intents.GET_PARAM]
 
 		print(
 			f'\nHello, and welcome to Nathan, Jason, and Ricky\'s cooking assistant. My name is {self.name}, and I will guide you through any recipe from AllRecipes.com! How can I be of service today?')
@@ -401,7 +426,7 @@ class Agent():
 			ask = True
 
 			# In the case that the user is not currently in a recipe, but is trying to perform an action that requires one
-			if self.current is None and self.current_intent in require_recipe:
+			if self.recipe is None and self.current_intent in require_recipe:
 
 				print(
 					f'\nSorry, but it seems like you\'re trying to do something that requires a specific recipe. Would you like to start on one now?')
@@ -421,6 +446,7 @@ class Agent():
 			# The user is currently in a recipe (all actions available)
 			else:
 				action = self.intent_action()
+				user_input = re.sub(r'^\![a-zA-z]*\b', '', user_input).strip()
 				action(user_input)
 				print()
 				self.history.append((self.current_intent.name, user_input))

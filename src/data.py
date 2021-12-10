@@ -245,7 +245,7 @@ get_param = [
 
 ## Intent: SUBSTITUTE
 substitute = [
-	'What can I susbtitute for (food)',
+	'What can I substitute for (food)',
 	'What is a good replacement for (food)',
 	'What can I use instead of (food)',
 	'replace (food)',
