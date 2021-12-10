@@ -161,6 +161,8 @@ start = [
 	'begin',
 	'lets make something',
 	'lets make a recipe'
+	#Additions
+	'I\'m ready'
 ]
 
 # This intent is for showing information about the RECIPE, not the step
@@ -214,7 +216,13 @@ search = [
 	'How do I (action) something with a (tool)',
 	'What is (food)',
 	'What is (tool)',
-	'How can I (action) (food)'
+	'How can I (action) (food)',
+	#Additions
+	'How do I (action)',
+	'How do I (action) with a (tool)',
+	'What is a (food)',
+	'What is a (tool)',
+
 ]
 
 # This intent is for showing information about the STEP not the recipe
@@ -229,7 +237,10 @@ get_param = [
 	'what temperature does (food) cook',
 	'When is it done',
 	'How much (food) do I need',
-	'How much (food)'
+	'How much (food)',
+	#Additions
+	'How long do I (action)'
+	'How long does (action) take'
 ]
 
 ## Intent: SUBSTITUTE
@@ -254,4 +265,21 @@ unknown = [
 	'     ',
 	'(tool) (tool)',
 	'(action) (action)',
+]
+
+## Intent: ACKNOWLEDGE
+acknowledge = [
+	'Okay',
+	'Yes',
+	'Fine',
+	'Sure',
+	'I Understand',
+	'Alright'
+	'All right'
+	'okey-dokey'
+	'roger'
+	'uh-huh'
+	'Ok',
+	'Thanks',
+	'Thank you'
 ]

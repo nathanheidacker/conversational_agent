@@ -183,6 +183,24 @@ class Recipe:
 				
 		def get_quantities(self):
 			quantities = []
+			words = self.text.split()
+			found_number = False
+			number = -1
+			for word in words:
+				if not found_number:
+					if re.match(r'([0-9]+\.?[0-9]*|\.[0-9]+)', word):
+						number = word
+						found_number = True
+				# last word was a number, check if this is a measurement
+				else:
+					# number + measurement
+					if word in data.measurements:
+						full_string = number + ' ' + word
+						quantities.append(full_string)
+						found_number = False
+					else:
+						# number + nonmeasurement
+						found_number = False
 			# this is not done yet
 			return quantities
             
@@ -213,6 +231,22 @@ class Recipe:
 		self.tools = self.named_tools()
 		self.potential_main_actions = self.pmActions()
 		self.main_actions = self.mActions()
+		self.update_ingredient_indices()
+		self.total_time = self.get_total_time()
+
+	def get_total_time(self):
+		find_times = self.soup.find_all('div', class_='recipe-meta-item-body')
+		times = []
+		#This is just a default time, it will never be seen
+		total_time = "1 hour"
+		for time in find_times:
+			if 'mins' in time.text or 'hour' in time.text or 'day' in time.text:
+				times.append(time.text)
+		if len(times) == 0:
+			total_time = "No Total Time was reported in this recipe"
+		else:
+			total_time = times[-1]
+		return total_time
 
 	def find_tags(self):
 		find_tag_list = self.soup.find('script', id='karma-loader')
@@ -246,6 +280,12 @@ class Recipe:
 				pma.append(i.lower())
 		return pma
 
+	def update_ingredient_indices(self):
+		self.ingredient_indices = {}
+		for i in range(len(self.ingredients)):
+			ing = self.ingredients[i]
+			self.ingredient_indices[ing['name']] = i
+	
 	#Identifies Likely main actions
 	def mActions(self):
 		action_list = ['cook', 'bake', 'fry', 'roast', 'grill', 'steam', 'poach', 'simmer', 'broil', 'blanch', 'braise', 'stew']
@@ -321,7 +361,6 @@ class Recipe:
 		# Cleaning the ingredients
 		ingredients = []
 		unknown = {}
-		ingredient_indices = {}
 		index = 0
 		for string in ingredient_strings:
 
@@ -442,7 +481,6 @@ class Recipe:
 
 			# This initial parse will properly handle most ingredients, but the validation step is necessary to improve accuracy for the others
 			ingredients.append(self.validate(ingredient))
-			ingredient_indices[ingredient['name']] = index
 			index += 1
 
 		return ingredients
