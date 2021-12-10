@@ -279,5 +279,7 @@ acknowledge = [
 	'okey-dokey'
 	'roger'
 	'uh-huh'
-	'Ok'
+	'Ok',
+	'Thanks'
+	'Thank you'
 ]
