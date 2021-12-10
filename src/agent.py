@@ -137,6 +137,9 @@ class Agent():
 
 		elif 'steps' in text:
 			to_show = f'There are {len(self.recipe.steps)} steps.'
+			self.recipe.output_steps()
+			print("You are on step: ")
+			print(self.current.text)
 
 		elif self.any_in_text(['time', 'long'], text):
 			to_show = self.current
