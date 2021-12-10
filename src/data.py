@@ -280,6 +280,6 @@ acknowledge = [
 	'roger'
 	'uh-huh'
 	'Ok',
-	'Thanks'
+	'Thanks',
 	'Thank you'
 ]
