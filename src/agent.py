@@ -166,7 +166,7 @@ class Agent():
 
 	# When the user's intent is to find information online
 	def search(self, text):
-		# If the search was empty, this gives the user an opportunity to properly search
+
 		text = text.replace('search', '')
 		text = text.replace('?', '')
 		if not re.search('[a-zA-Z]', text):
@@ -174,13 +174,9 @@ class Agent():
 			print(text)
 		# Getting the inquiry from the text
 		inquiry = ' '.join(text.split()[1:]).replace('?', '')
-		print(inquiry)
+		#print(inquiry)
 
-		# Getting the inquiry from the text
-		inquiry = ' '.join(text.split()[1:]).replace('?', '')
-
-		do_can_words = ["can", "could", "do", "carry out", "execute", "perform", "implement", "complete", "finish",
-						"bring about", "effect", "pull off"]
+		#do_can_words = ["can", "could",  "do", "carry out", "execute", "perform", "implement", "complete", "finish", "bring about", "effect", "pull off"]
 		assumes_vague = ["this", "that", "these", "those", "such"]
 
 		# Adding words to make the google query more accurate
@@ -196,8 +192,9 @@ class Agent():
 				# Helps with query accuracy
 				if 'for cooking' not in inquiry.lower():
 					inquiry += ' for cooking'
+		#print(inquiry)
 
-		# Finding out if the question is a vague one
+        # Finding out if the question is a vague one
 		step = nltk.word_tokenize(inquiry)
 		vague_question = False
 
@@ -211,19 +208,22 @@ class Agent():
 
 		# Vague questions are not permitted unless we have an active recipe
 		if not self.recipe and vague_question:
-			print('It seems that you\'re asking a question about a recipe, but you aren\'t current in one.')
+			print('It seems that you\'re asking a question about a recipe, but you aren\'t currently in one.')
 			return
-
-		# Making the inquiry more explicit if it is vague
+		if vague_question:
+			inquiry = self.current.text
+        # Making the inquiry more explicit if it is vague
 		inquiry = ("How do I " + inquiry) if vague_question else inquiry
-
+		%print(inquiry)	
 		# Getting the google result
 		url = "https://google.com/search?q=" + inquiry
+		#print(url)
 		request_result = requests.get(url)
 		soup = bs4.BeautifulSoup(request_result.text, 'html.parser')
 		answer = soup.find("div", class_='BNeawe s3v9rd AP7Wnd').text
 		answer = answer.replace('... ', ' ').replace('  ', ' ')
 		print(answer)
+
 
 	# When the user's intent is to get some parameter about an ingredient or step
 	def get_param(self, text):
