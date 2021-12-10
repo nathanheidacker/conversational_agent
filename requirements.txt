@@ -6,3 +6,4 @@ pandas
 numpy
 bs4
 nltk
+rapidfuzz
