@@ -232,6 +232,21 @@ class Recipe:
 		self.potential_main_actions = self.pmActions()
 		self.main_actions = self.mActions()
 		self.update_ingredient_indices()
+		self.total_time = self.get_total_time()
+
+	def get_total_time(self):
+		find_times = self.soup.find_all('div', class_='recipe-meta-item-body')
+		times = []
+		#This is just a default time, it will never be seen
+		total_time = "1 hour"
+		for time in find_times:
+			if 'mins' in time.text or 'hour' in time.text or 'day' in time.text:
+				times.append(time.text)
+		if len(times) == 0:
+			total_time = "No Total Time was reported in this recipe"
+		else:
+			total_time = times[-1]
+		return total_time
 
 	def find_tags(self):
 		find_tag_list = self.soup.find('script', id='karma-loader')
