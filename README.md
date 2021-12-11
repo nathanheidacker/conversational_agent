@@ -1,6 +1,6 @@
 # Recipe-Parsing Conversational Agent
 
-GITHUB LINK: https://github.com/nathanheidacker/conversational_agent
+Github link: https://github.com/nathanheidacker/conversational_agent
 
 Welcome to our conversational agent! This bot parses any recipe from [allrecipes.com](https://www.allrecipes.com/), and will guide you through it using natural conversation.
 
