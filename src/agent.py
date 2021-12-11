@@ -165,14 +165,17 @@ class Agent():
 	# When the user's intent is to navigate to a different step of the recipe
 	def navigate(self, text):
 
-		forward = ['next', 'after', 'forward']
+		forward = ['next', 'after', 'forward', 'done', 'finish']
 		backward = ['last', 'before', 'previous', 'backward', 'back']
 
 		# determine where/how to move
+		prepend = ''
 		direction = 0
 		if self.any_in_text(forward, text):
+			prepend = 'Next step: '
 			direction = 1
 		elif self.any_in_text(backward, text):
+			prepend = 'Previous step: '
 			direction = -1
 
 		self.current_i += direction
@@ -191,7 +194,7 @@ class Agent():
 
 		self.current = self.recipe.steps[self.current_i]
 
-		if print_step: print(self.current.text)
+		if print_step: print(prepend + self.current.text)
 
 	# When the user's intent is to find information online
 	def search(self, text):

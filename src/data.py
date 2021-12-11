@@ -153,17 +153,18 @@ substitutes = {
 
 ## Intent: START
 start = [
-	'I\'d like to start a recipe',
-	'start',
+	'I would like to start a recipe',
 	'start a recipe',
 	'lets start a recipe',
 	'begin recipe',
-	'begin',
+	'show me how to make something',
 	'lets make something',
-	'lets make a recipe'
-	#Additions
-	'I\'m ready'
+	'lets make a recipe',
+	'I am ready',
+	'I would like to make something'
 ]
+
+
 
 # This intent is for showing information about the RECIPE, not the step
 ## Intent: SHOW
@@ -171,12 +172,24 @@ show = [
 	'What are the ingredients',
 	'show me the ingredients',
 	'show ingredients',
-	'whats this recipe called',
+	'what is this recipe called',
 	'show me the recipe name',
 	'show recipe name',
 	'show recipe ingredients',
 	'show recipe time',
+	'what is your name',
+	'can you tell me your name',
+	'what is the recipe name',
+	'what are the ingredients',
+	'show me the recipe steps',
+	'what are all of the recipe steps',
+	'how many steps are there',
+	'what is the total cook time',
+	'what is the total recipe time',
+	'show me the total time'
 ]
+
+
 
 ## Intent: NAVIGATE
 navigate = [
@@ -204,11 +217,13 @@ navigate = [
 	'Next step',
 	'Previous step',
 	'Last step',
-	'Next',
 	'I\'m done with this step',
 	'Take me to the last step',
 	'I finished',
+	'I am done with that step'
 ]
+
+
 
 ## Intent: SEARCH
 search = [
@@ -217,13 +232,13 @@ search = [
 	'What is (food)',
 	'What is (tool)',
 	'How can I (action) (food)',
-	#Additions
 	'How do I (action)',
 	'How do I (action) with a (tool)',
 	'What is a (food)',
-	'What is a (tool)',
-
+	'What is a (tool)'
 ]
+
+
 
 # This intent is for showing information about the STEP not the recipe
 ## Intent: GET_PARAM
@@ -238,8 +253,7 @@ get_param = [
 	'When is it done',
 	'How much (food) do I need',
 	'How much (food)',
-	#Additions
-	'How long do I (action)'
+	'How long do I (action)',
 	'How long does (action) take'
 ]
 
@@ -249,33 +263,26 @@ substitute = [
 	'What can I substitute for (food)',
 	'What is a good replacement for (food)',
 	'What can I use instead of (food)',
-	'replace (food)',
-	'substitute (food)',
 	'How can I substitute (food)'
 ]
 
 
 ## Intent: UKNOWN
 unknown = [
-	'(food) (food)',
-	'     ',
-	'(tool) (tool)',
-	'(action) (action)',
+	'(food) (food) (food)',
+	'(tool) (tool) (tool)',
+	'(action) (action) (action)',
 ]
+
 
 ## Intent: ACKNOWLEDGE
 acknowledge = [
-	'Okay',
-	'Yes',
-	'Fine',
-	'Sure',
 	'I Understand',
-	'Alright'
-	'All right'
-	'okey-dokey'
-	'roger'
-	'uh-huh'
-	'Ok',
-	'Thanks',
-	'Thank you'
+	'All right',
+	'okey-dokey',
+	'uh huh',
+	'Thank you',
+	'thank you very much',
+	'much thanks',
+	'thanks for the help'
 ]
