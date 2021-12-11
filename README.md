@@ -1,5 +1,7 @@
 # Recipe-Parsing Conversational Agent
 
+Github link: https://github.com/nathanheidacker/conversational_agent
+
 Welcome to our conversational agent! This bot parses any recipe from [allrecipes.com](https://www.allrecipes.com/), and will guide you through it using natural conversation.
 
 This agent uses an intent classifier on top of a a pretrained transformer (BERT) to categorize the intent of the user during conversation and perform the corresponding action.
