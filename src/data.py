@@ -157,11 +157,9 @@ start = [
 	'start a recipe',
 	'lets start a recipe',
 	'begin recipe',
-	'show me how to make something',
 	'lets make something',
 	'lets make a recipe',
-	'I am ready',
-	'I would like to make something'
+	'I am ready'
 ]
 
 
@@ -180,13 +178,7 @@ show = [
 	'what is your name',
 	'can you tell me your name',
 	'what is the recipe name',
-	'what are the ingredients',
-	'show me the recipe steps',
-	'what are all of the recipe steps',
-	'how many steps are there',
-	'what is the total cook time',
-	'what is the total recipe time',
-	'show me the total time'
+	'what are the ingredients'
 ]
 
 
@@ -220,7 +212,6 @@ navigate = [
 	'I\'m done with this step',
 	'Take me to the last step',
 	'I finished',
-	'I am done with that step'
 ]
 
 
@@ -235,7 +226,7 @@ search = [
 	'How do I (action)',
 	'How do I (action) with a (tool)',
 	'What is a (food)',
-	'What is a (tool)'
+	'What is a (tool)',
 ]
 
 
@@ -269,20 +260,18 @@ substitute = [
 
 ## Intent: UKNOWN
 unknown = [
-	'(food) (food) (food)',
-	'(tool) (tool) (tool)',
-	'(action) (action) (action)',
+	'(food) (food)',
+	'(tool) (tool)',
+	'(action) (action)',
 ]
 
 
 ## Intent: ACKNOWLEDGE
 acknowledge = [
 	'I Understand',
+	'Alright',
 	'All right',
 	'okey-dokey',
-	'uh huh',
+	'uh-huh',
 	'Thank you',
-	'thank you very much',
-	'much thanks',
-	'thanks for the help'
 ]
