@@ -6,10 +6,6 @@ Welcome to our conversational agent! This bot parses any recipe from [allrecipes
 
 This agent uses an intent classifier on top of a a pretrained transformer (BERT) to categorize the intent of the user during conversation and perform the corresponding action.
 
-#### Note for Victor
-
-While this implementation may not boast performance on par with Rasa, I hope you can appreciate how much effort we put into making a solution for intent recognition from scratch by tuning a transformer. I certainly feel as though it required a lot more effort, and allowed us to learn a lot more about NLP in the process. I think our biggest bottleneck overall was simply our access to data (or our training dataset design), because we had to come up with all of it on our own.
-
 ## Installation / Setup
 
 To run our conversational agent, please create and activate a new python virtual environment, and then pip install our requirements:
